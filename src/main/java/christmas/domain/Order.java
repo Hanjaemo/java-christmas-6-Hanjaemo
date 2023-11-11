@@ -38,4 +38,8 @@ public class Order {
         }
         return totalOrderAmount;
     }
+
+    public void addMenu(Menu menu) {
+        menus.put(menu, menus.getOrDefault(menu, 0) + 1);
+    }
 }
