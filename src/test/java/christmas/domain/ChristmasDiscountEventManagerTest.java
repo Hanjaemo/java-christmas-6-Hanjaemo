@@ -14,10 +14,10 @@ class ChristmasDiscountEventManagerTest {
     void applyEvent_Success_ByVisitDayIsWithinChristmasPeriod(int visitDay, int expectedDiscountAmount) {
         // given
         BenefitDetails benefitDetails = new BenefitDetails();
-        ChristmasDiscountEventManager christmasDiscountEventManager = new ChristmasDiscountEventManager();
+        EventManager christmasDiscountEventManager = new ChristmasDiscountEventManager(benefitDetails);
 
         // when
-        int discountAmount = christmasDiscountEventManager.applyEvent(visitDay, benefitDetails);
+        int discountAmount = christmasDiscountEventManager.applyEvent(visitDay);
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(expectedDiscountAmount);
@@ -29,10 +29,10 @@ class ChristmasDiscountEventManagerTest {
     void applyEvent_ReturnZero_ByVisitDayIsNotWithinChristmasPeriod(int visitDay) {
         // given
         BenefitDetails benefitDetails = new BenefitDetails();
-        ChristmasDiscountEventManager christmasDiscountEventManager = new ChristmasDiscountEventManager();
+        EventManager christmasDiscountEventManager = new ChristmasDiscountEventManager(benefitDetails);
 
         // when
-        int discountAmount = christmasDiscountEventManager.applyEvent(visitDay, benefitDetails);
+        int discountAmount = christmasDiscountEventManager.applyEvent(visitDay);
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(0);

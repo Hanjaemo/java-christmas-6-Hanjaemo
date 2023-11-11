@@ -1,8 +1,13 @@
 package christmas.domain;
 
-public class ChristmasDiscountEventManager {
+public class ChristmasDiscountEventManager extends EventManager {
 
-    public int applyEvent(int visitDay, BenefitDetails benefitDetails) {
+    public ChristmasDiscountEventManager(BenefitDetails benefitDetails) {
+        super(benefitDetails);
+    }
+
+    @Override
+    public int applyEvent(int visitDay) {
         if (visitDay < 1 || visitDay > 25) {
             return 0;
         }
