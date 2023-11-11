@@ -27,4 +27,8 @@ public enum Menu {
     public boolean isDessert() {
         return this.category == MenuCategory.DESSERT;
     }
+
+    public int getPrice() {
+        return price;
+    }
 }

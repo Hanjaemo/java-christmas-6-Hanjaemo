@@ -30,4 +30,12 @@ public class Order {
                 .mapToInt(menus::get)
                 .sum();
     }
+
+    public int calculateTotalOrderAmount() {
+        int totalOrderAmount = 0;
+        for (Menu menu : menus.keySet()) {
+            totalOrderAmount += (menu.getPrice() * menus.get(menu));
+        }
+        return totalOrderAmount;
+    }
 }
