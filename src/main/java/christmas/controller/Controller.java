@@ -5,6 +5,7 @@ import christmas.GiveawayMenusDto;
 import christmas.OrderMenusDto;
 import christmas.domain.BenefitDetails;
 import christmas.domain.ChristmasDiscountEventManager;
+import christmas.domain.ExpectedPaymentAmountCalculator;
 import christmas.domain.GiveawayEventManager;
 import christmas.domain.Menu;
 import christmas.domain.Order;
@@ -55,5 +56,13 @@ public class Controller {
         OutputView.printGiveawayMenu(new GiveawayMenusDto(benefitDetails.getGiveawayMenus()));
         OutputView.printBenefitDetails(new BenefitDetailsDto(benefitDetails.getAppliedEvents()));
         OutputView.printTotalBenefitAmount(benefitDetails.calculateTotalBenefitAmount());
+
+        ExpectedPaymentAmountCalculator expectedPaymentAmountCalculator = new ExpectedPaymentAmountCalculator();
+        OutputView.printExpectedPaymentAmountAfterDiscount(
+                expectedPaymentAmountCalculator.calculateExpectedPaymentAmount(
+                        order.calculateTotalOrderAmount(),
+                        benefitDetails.calculateTotalBenefitAmount()
+                )
+        );
     }
 }
