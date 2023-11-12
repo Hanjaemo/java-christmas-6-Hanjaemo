@@ -9,7 +9,18 @@ public class VisitDay {
     private final int visitDay;
 
     public VisitDay(int visitDay) {
+        validate(visitDay);
         this.visitDay = visitDay;
+    }
+
+    private void validate(int visitDay) {
+        if (invalidDay(visitDay)) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+        }
+    }
+
+    private boolean invalidDay(int visitDay) {
+        return visitDay < 1 || visitDay > 31;
     }
 
     public boolean isNotWithinChristmasPeriod() {
