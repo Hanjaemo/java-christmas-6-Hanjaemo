@@ -5,6 +5,8 @@ import christmas.GiveawayMenusDto;
 import christmas.OrderMenusDto;
 import christmas.domain.BenefitDetails;
 import christmas.domain.ChristmasDiscountEventManager;
+import christmas.domain.EventBadge;
+import christmas.domain.EventBadgeAssigner;
 import christmas.domain.ExpectedPaymentAmountCalculator;
 import christmas.domain.GiveawayEventManager;
 import christmas.domain.Menu;
@@ -64,5 +66,9 @@ public class Controller {
                         benefitDetails.calculateTotalBenefitAmount()
                 )
         );
+
+        EventBadgeAssigner eventBadgeAssigner = new EventBadgeAssigner();
+        EventBadge eventBadge = eventBadgeAssigner.assignEventBadge(benefitDetails.calculateTotalBenefitAmount());
+        OutputView.printDecemberEventBadge(eventBadge.toString());
     }
 }
