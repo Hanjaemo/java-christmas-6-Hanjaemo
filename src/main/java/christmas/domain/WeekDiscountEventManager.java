@@ -1,8 +1,5 @@
 package christmas.domain;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-
 public class WeekDiscountEventManager extends EventManager {
 
     private final Order order;
@@ -13,9 +10,8 @@ public class WeekDiscountEventManager extends EventManager {
     }
 
     @Override
-    public int applyEvent(int visitDay) {
-        DayOfWeek visitDayOfWeek = LocalDate.of(2023, 12, visitDay).getDayOfWeek();
-        if (visitDayOfWeek == DayOfWeek.FRIDAY || visitDayOfWeek == DayOfWeek.SATURDAY) {
+    public int applyEvent(VisitDay visitDay) {
+        if (visitDay.isWeekend()) {
             int discountAmount = order.countMainMenus() * 2_023;
             benefitDetails.addEvent(Event.WEEKEND_DISCOUNT, discountAmount);
             return discountAmount;

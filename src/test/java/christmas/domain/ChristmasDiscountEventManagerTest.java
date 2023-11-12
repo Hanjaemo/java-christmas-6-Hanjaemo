@@ -17,7 +17,7 @@ class ChristmasDiscountEventManagerTest {
         EventManager christmasDiscountEventManager = new ChristmasDiscountEventManager(benefitDetails);
 
         // when
-        int discountAmount = christmasDiscountEventManager.applyEvent(visitDay);
+        int discountAmount = christmasDiscountEventManager.applyEvent(createVisitDay(visitDay));
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(expectedDiscountAmount);
@@ -32,9 +32,13 @@ class ChristmasDiscountEventManagerTest {
         EventManager christmasDiscountEventManager = new ChristmasDiscountEventManager(benefitDetails);
 
         // when
-        int discountAmount = christmasDiscountEventManager.applyEvent(visitDay);
+        int discountAmount = christmasDiscountEventManager.applyEvent(createVisitDay(visitDay));
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(0);
+    }
+
+    VisitDay createVisitDay(int visitDay) {
+        return new VisitDay(visitDay);
     }
 }

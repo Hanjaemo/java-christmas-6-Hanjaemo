@@ -10,7 +10,7 @@ public class GiveawayEventManager extends EventManager {
     }
 
     @Override
-    public int applyEvent(int visitDay) {
+    public int applyEvent(VisitDay visitDay) {
         int totalOrderAmount = order.calculateTotalOrderAmount();
         if (totalOrderAmount < 120_000) {
             return 0;

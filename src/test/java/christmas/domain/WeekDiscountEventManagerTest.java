@@ -1,9 +1,6 @@
 package christmas.domain;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Map;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +26,7 @@ class WeekDiscountEventManagerTest {
     @ValueSource(ints = {3, 4, 12, 25, 31})
     void applyEvent_Success_ByVisitDayIsWeekday(int visitDay) {
         // when
-        int discountAmount = eventManager.applyEvent(visitDay);
+        int discountAmount = eventManager.applyEvent(createVisitDay(visitDay));
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(2023 * 2);
@@ -40,10 +37,13 @@ class WeekDiscountEventManagerTest {
     @ValueSource(ints = {1, 9, 22, 30})
     void applyEvent_Success_ByVisitDayIsWeekend(int visitDay) {
         // when
-        int discountAmount = eventManager.applyEvent(visitDay);
+        int discountAmount = eventManager.applyEvent(createVisitDay(visitDay));
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(2023);
     }
 
+    VisitDay createVisitDay(int visitDay) {
+        return new VisitDay(visitDay);
+    }
 }

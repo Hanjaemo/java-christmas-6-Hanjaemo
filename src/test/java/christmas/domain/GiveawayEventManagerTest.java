@@ -19,7 +19,7 @@ class GiveawayEventManagerTest {
         EventManager eventManager = new GiveawayEventManager(new BenefitDetails(), new Order(orderMenus));
 
         // when
-        int discount = eventManager.applyEvent(4);
+        int discount = eventManager.applyEvent(createVisitDay(4));
 
         // then
         Assertions.assertThat(discount).isEqualTo(25_000);
@@ -35,9 +35,13 @@ class GiveawayEventManagerTest {
         EventManager eventManager = new GiveawayEventManager(new BenefitDetails(), new Order(orderMenus));
 
         // when
-        int discount = eventManager.applyEvent(4);
+        int discount = eventManager.applyEvent(createVisitDay(5));
 
         // then
         Assertions.assertThat(discount).isEqualTo(0);
+    }
+
+    VisitDay createVisitDay(int visitDay) {
+        return new VisitDay(visitDay);
     }
 }

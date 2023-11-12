@@ -8,5 +8,5 @@ public abstract class EventManager {
         this.benefitDetails = benefitDetails;
     }
 
-    public abstract int applyEvent(int visitDay);
+    public abstract int applyEvent(VisitDay visitDay);
 }

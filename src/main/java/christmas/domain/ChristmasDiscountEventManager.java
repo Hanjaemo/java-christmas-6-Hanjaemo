@@ -2,16 +2,19 @@ package christmas.domain;
 
 public class ChristmasDiscountEventManager extends EventManager {
 
+    private static final int DEFAULT_DISCOUNT_AMOUNT = 1_000;
+    private static final int DAILY_INCREMENT_AMOUNT = 100;
+
     public ChristmasDiscountEventManager(BenefitDetails benefitDetails) {
         super(benefitDetails);
     }
 
     @Override
-    public int applyEvent(int visitDay) {
-        if (visitDay < 1 || visitDay > 25) {
+    public int applyEvent(VisitDay visitDay) {
+        if (visitDay.isNotWithinChristmasPeriod()) {
             return 0;
         }
-        int discountAmount = 1000 + ((visitDay - 1) * 100);
+        int discountAmount = DEFAULT_DISCOUNT_AMOUNT + (visitDay.decreaseOneDay() * DAILY_INCREMENT_AMOUNT);
         benefitDetails.addEvent(Event.CHRISTMAS_DISCOUNT, discountAmount);
         return discountAmount;
     }

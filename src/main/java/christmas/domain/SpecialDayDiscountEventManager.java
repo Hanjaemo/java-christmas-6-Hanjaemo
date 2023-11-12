@@ -12,8 +12,8 @@ public class SpecialDayDiscountEventManager extends EventManager {
     }
 
     @Override
-    public int applyEvent(int visitDay) {
-        if (!specialDays.contains(visitDay)) {
+    public int applyEvent(VisitDay visitDay) {
+        if (specialDays.notContains(visitDay)) {
             return 0;
         }
         benefitDetails.addEvent(Event.SPECIAL_DISCOUNT, DISCOUNT_AMOUNT);
