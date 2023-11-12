@@ -69,4 +69,9 @@ public class OutputView {
                     benefitName, convertNumberToKoreanWonFormat(-benefitDetails.get(benefitName)));
         }
     }
+
+    public static void printTotalBenefitAmount(int totalBenefitAmount) {
+        System.out.println("<총혜택 금액>");
+        System.out.println(convertNumberToKoreanWonFormat(-totalBenefitAmount));
+    }
 }
