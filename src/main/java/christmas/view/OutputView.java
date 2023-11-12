@@ -1,7 +1,10 @@
 package christmas.view;
 
+import christmas.BenefitDetailsDto;
 import christmas.GiveawayMenusDto;
 import christmas.OrderMenusDto;
+import christmas.domain.BenefitDetails;
+
 import java.text.DecimalFormat;
 import java.util.Map;
 
@@ -44,13 +47,26 @@ public class OutputView {
         repeatPrintMenus(giveawayMenusDto.getMenus());
     }
 
-    private static boolean isNotExist(Map<String, Integer> menus) {
-        return menus.size() == 0;
+    private static boolean isNotExist(Map<String, Integer> map) {
+        return map.size() == 0;
     }
 
     private static void repeatPrintMenus(Map<String, Integer> menus) {
         for (String menuName : menus.keySet()) {
             System.out.printf("%s %d개%n", menuName, menus.get(menuName));
+        }
+    }
+
+    public static void printBenefitDetails(BenefitDetailsDto benefitDetailsDto) {
+        System.out.println("<혜택 내역>");
+        Map<String, Integer> benefitDetails = benefitDetailsDto.getBenefitDetails();
+        if (isNotExist(benefitDetails)) {
+            System.out.println(NOT_EXIST_MESSAGE);
+            return;
+        }
+        for (String benefitName : benefitDetails.keySet()) {
+            System.out.printf("%s: %s%n",
+                    benefitName, convertNumberToKoreanWonFormat(-benefitDetails.get(benefitName)));
         }
     }
 }
