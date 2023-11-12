@@ -9,7 +9,31 @@ public class Order {
     private final Map<Menu, Integer> menus;
 
     public Order(Map<Menu, Integer> menus) {
+        validateEachMenuQuantity(menus);
+        validateTotalMenuQuantity(menus);
+        validateDuplicated(menus);
         this.menus = menus;
+    }
+
+    private void validateEachMenuQuantity(Map<Menu, Integer> menus) {
+        for (Integer quantity : menus.values()) {
+            if (quantity < 1 || quantity > 20) {
+                throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            }
+        }
+    }
+
+    private void validateTotalMenuQuantity(Map<Menu, Integer> menus) {
+        int totalMenuQuantity = menus.values().stream()
+                .mapToInt(quantity -> quantity)
+                .sum();
+        if (totalMenuQuantity > 20) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+    }
+
+    private void validateDuplicated(Map<Menu, Integer> menus) {
+
     }
 
     public int countMainMenus() {
