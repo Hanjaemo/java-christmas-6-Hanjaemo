@@ -14,5 +14,12 @@ public class BenefitDetails {
     public void addEvent(Event event, int discountAmount) {
         appliedEvents.put(event, discountAmount);
     }
+
+    public int calculateTotalBenefitAmount() {
+        return appliedEvents.keySet()
+                .stream()
+                .mapToInt(appliedEvents::get)
+                .sum();
+    }
 }
 
