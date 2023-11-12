@@ -79,4 +79,8 @@ public class OutputView {
         System.out.println("<할인 후 예상 결제 금액>");
         System.out.println(convertNumberToKoreanWonFormat(expectedPaymentAmountAfterDiscount));
     }
+
+    public static void printDecemberEventBadge(String badgeName) {
+        System.out.println(badgeName);
+    }
 }

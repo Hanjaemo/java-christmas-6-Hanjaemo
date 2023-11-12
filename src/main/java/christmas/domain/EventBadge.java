@@ -20,4 +20,9 @@ public enum EventBadge {
     public boolean matchesTotalBenefitAmount(int totalBenefitAmount) {
         return totalBenefitAmountMatcher.test(totalBenefitAmount);
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
