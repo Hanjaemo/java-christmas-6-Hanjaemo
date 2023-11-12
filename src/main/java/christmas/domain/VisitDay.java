@@ -39,4 +39,8 @@ public class VisitDay {
     public boolean isNotSpecialDay(List<Integer> specialDays) {
         return !specialDays.contains(visitDay);
     }
+
+    public int getVisitDay() {
+        return visitDay;
+    }
 }

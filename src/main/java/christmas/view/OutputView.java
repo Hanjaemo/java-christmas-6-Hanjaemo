@@ -3,8 +3,6 @@ package christmas.view;
 import christmas.BenefitDetailsDto;
 import christmas.GiveawayMenusDto;
 import christmas.OrderMenusDto;
-import christmas.domain.BenefitDetails;
-
 import java.text.DecimalFormat;
 import java.util.Map;
 

@@ -18,5 +18,7 @@ public class Controller {
                         menuInfo -> Menu.from(menuInfo.getKey()),
                         menuInfo -> menuInfo.getValue()));
         Order order = new Order(orderMenus);
+
+        OutputView.printPreviewOfEventBenefitsMessage(visitDay.getVisitDay());
     }
 }
