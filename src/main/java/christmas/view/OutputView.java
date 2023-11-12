@@ -20,19 +20,19 @@ public class OutputView {
 
     public static void printPreviewOfEventBenefitsMessage(int visitDay) {
         System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!%s", visitDay, NEW_LINE);
-        System.out.print(NEW_LINE);
+        printNewLine();
     }
 
     public static void printOrderMenus(OrderMenusDto orderMenusDto) {
         System.out.println("<주문 메뉴>");
         repeatPrintMenus(orderMenusDto.getMenus());
-        System.out.print(NEW_LINE);
+        printNewLine();
     }
 
     public static void printTotalOrderAmountBeforeDiscount(int totalOrderAmountBeforeDiscount) {
         System.out.println("<할인 전 총주문 금액>");
         System.out.println(convertNumberToKoreanWonFormat(totalOrderAmountBeforeDiscount));
-        System.out.print(NEW_LINE);
+        printNewLine();
     }
 
     private static String convertNumberToKoreanWonFormat(int originalNumber) {
@@ -44,10 +44,11 @@ public class OutputView {
         Map<String, Integer> menus = giveawayMenusDto.getMenus();
         if (isNotExist(menus)) {
             System.out.println(NOT_EXIST_MESSAGE);
+            printNewLine();
             return;
         }
         repeatPrintMenus(giveawayMenusDto.getMenus());
-        System.out.print(NEW_LINE);
+        printNewLine();
     }
 
     private static boolean isNotExist(Map<String, Integer> map) {
@@ -65,29 +66,34 @@ public class OutputView {
         Map<String, Integer> benefitDetails = benefitDetailsDto.getBenefitDetails();
         if (isNotExist(benefitDetails)) {
             System.out.println(NOT_EXIST_MESSAGE);
+            printNewLine();
             return;
         }
         for (String benefitName : benefitDetails.keySet()) {
             System.out.printf("%s: %s%s",
                     benefitName, convertNumberToKoreanWonFormat(-benefitDetails.get(benefitName)), NEW_LINE);
         }
-        System.out.print(NEW_LINE);
+        printNewLine();
     }
 
     public static void printTotalBenefitAmount(int totalBenefitAmount) {
         System.out.println("<총혜택 금액>");
         System.out.println(convertNumberToKoreanWonFormat(-totalBenefitAmount));
-        System.out.print(NEW_LINE);
+        printNewLine();
     }
 
     public static void printExpectedPaymentAmountAfterDiscount(int expectedPaymentAmountAfterDiscount) {
         System.out.println("<할인 후 예상 결제 금액>");
         System.out.println(convertNumberToKoreanWonFormat(expectedPaymentAmountAfterDiscount));
-        System.out.print(NEW_LINE);
+        printNewLine();
     }
 
     public static void printDecemberEventBadge(String badgeName) {
         System.out.println("<12월 이벤트 배지>");
         System.out.println(badgeName);
+    }
+
+    private static void printNewLine() {
+        System.out.print(NEW_LINE);
     }
 }
