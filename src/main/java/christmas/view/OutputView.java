@@ -1,5 +1,6 @@
 package christmas.view;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 
 import christmas.OrderMenusDto;
@@ -23,5 +24,14 @@ public class OutputView {
         for (String menuName : menus.keySet()) {
             System.out.printf("%s %d개%n", menuName, menus.get(menuName));
         }
+    }
+
+    public static void printTotalOrderAmountBeforeDiscount(int totalOrderAmountBeforeDiscount) {
+        System.out.println("<할인 전 총주문 금액>");
+        System.out.println(convertNumberToKoreanWonFormat(totalOrderAmountBeforeDiscount));
+    }
+
+    private static String convertNumberToKoreanWonFormat(int originalNumber) {
+        return new DecimalFormat("#,###원").format(originalNumber);
     }
 }
