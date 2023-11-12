@@ -32,6 +32,7 @@ public class OutputView {
     public static void printTotalOrderAmountBeforeDiscount(int totalOrderAmountBeforeDiscount) {
         System.out.println("<할인 전 총주문 금액>");
         System.out.println(convertNumberToKoreanWonFormat(totalOrderAmountBeforeDiscount));
+        System.out.print(NEW_LINE);
     }
 
     private static String convertNumberToKoreanWonFormat(int originalNumber) {
@@ -46,6 +47,7 @@ public class OutputView {
             return;
         }
         repeatPrintMenus(giveawayMenusDto.getMenus());
+        System.out.print(NEW_LINE);
     }
 
     private static boolean isNotExist(Map<String, Integer> map) {
@@ -69,16 +71,19 @@ public class OutputView {
             System.out.printf("%s: %s%s",
                     benefitName, convertNumberToKoreanWonFormat(-benefitDetails.get(benefitName)), NEW_LINE);
         }
+        System.out.print(NEW_LINE);
     }
 
     public static void printTotalBenefitAmount(int totalBenefitAmount) {
         System.out.println("<총혜택 금액>");
         System.out.println(convertNumberToKoreanWonFormat(-totalBenefitAmount));
+        System.out.print(NEW_LINE);
     }
 
     public static void printExpectedPaymentAmountAfterDiscount(int expectedPaymentAmountAfterDiscount) {
         System.out.println("<할인 후 예상 결제 금액>");
         System.out.println(convertNumberToKoreanWonFormat(expectedPaymentAmountAfterDiscount));
+        System.out.print(NEW_LINE);
     }
 
     public static void printDecemberEventBadge(String badgeName) {

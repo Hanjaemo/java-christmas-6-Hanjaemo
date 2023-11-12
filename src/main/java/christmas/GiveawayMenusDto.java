@@ -1,13 +1,21 @@
 package christmas;
 
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import christmas.domain.Menu;
 
 public class GiveawayMenusDto {
 
     private final Map<String, Integer> menus;
 
-    public GiveawayMenusDto(Map<String, Integer> menus) {
-        this.menus = menus;
+    public GiveawayMenusDto(Map<Menu, Integer> menus) {
+        this.menus = menus.entrySet()
+                .stream()
+                .collect(Collectors.toMap(
+                        menu -> menu.getKey().getName(),
+                        menu -> menu.getValue()
+                ));
     }
 
     public Map<String, Integer> getMenus() {

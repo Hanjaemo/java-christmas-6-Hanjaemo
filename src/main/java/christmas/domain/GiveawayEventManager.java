@@ -16,6 +16,7 @@ public class GiveawayEventManager extends EventManager {
             return 0;
         }
         order.addMenu(Menu.CHAMPAGNE);
+        benefitDetails.giveAwayMenu(Menu.CHAMPAGNE);
         int discount = Menu.CHAMPAGNE.getPrice();
         benefitDetails.addEvent(Event.GIVEAWAY, discount);
         return discount;
