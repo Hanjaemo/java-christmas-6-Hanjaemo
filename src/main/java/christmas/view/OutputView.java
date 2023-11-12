@@ -1,11 +1,13 @@
 package christmas.view;
 
+import christmas.GiveawayMenusDto;
+import christmas.OrderMenusDto;
 import java.text.DecimalFormat;
 import java.util.Map;
 
-import christmas.OrderMenusDto;
-
 public class OutputView {
+
+    private static final String NOT_EXIST_MESSAGE = "없음";
 
     private OutputView() {
     }
@@ -20,10 +22,7 @@ public class OutputView {
 
     public static void printOrderMenus(OrderMenusDto orderMenusDto) {
         System.out.println("<주문 메뉴>");
-        Map<String, Integer> menus = orderMenusDto.getMenus();
-        for (String menuName : menus.keySet()) {
-            System.out.printf("%s %d개%n", menuName, menus.get(menuName));
-        }
+        repeatPrintMenus(orderMenusDto.getMenus());
     }
 
     public static void printTotalOrderAmountBeforeDiscount(int totalOrderAmountBeforeDiscount) {
@@ -33,5 +32,25 @@ public class OutputView {
 
     private static String convertNumberToKoreanWonFormat(int originalNumber) {
         return new DecimalFormat("#,###원").format(originalNumber);
+    }
+
+    public static void printGiveawayMenu(GiveawayMenusDto giveawayMenusDto) {
+        System.out.println("<증정 메뉴>");
+        Map<String, Integer> menus = giveawayMenusDto.getMenus();
+        if (isNotExist(menus)) {
+            System.out.println(NOT_EXIST_MESSAGE);
+            return;
+        }
+        repeatPrintMenus(giveawayMenusDto.getMenus());
+    }
+
+    private static boolean isNotExist(Map<String, Integer> menus) {
+        return menus.size() == 0;
+    }
+
+    private static void repeatPrintMenus(Map<String, Integer> menus) {
+        for (String menuName : menus.keySet()) {
+            System.out.printf("%s %d개%n", menuName, menus.get(menuName));
+        }
     }
 }
