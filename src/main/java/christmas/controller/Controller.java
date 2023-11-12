@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.OrderMenusDto;
 import christmas.domain.Menu;
 import christmas.domain.Order;
 import christmas.domain.VisitDay;
@@ -20,5 +21,8 @@ public class Controller {
         Order order = new Order(orderMenus);
 
         OutputView.printPreviewOfEventBenefitsMessage(visitDay.getVisitDay());
+
+        OutputView.printOrderMenus(new OrderMenusDto(order.getOrderMenus()));
+        OutputView.printTotalOrderAmountBeforeDiscount(order.calculateTotalOrderAmount());
     }
 }

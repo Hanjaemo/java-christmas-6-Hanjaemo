@@ -42,6 +42,10 @@ public enum Menu {
         return this.category == MenuCategory.DESSERT;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getPrice() {
         return price;
     }

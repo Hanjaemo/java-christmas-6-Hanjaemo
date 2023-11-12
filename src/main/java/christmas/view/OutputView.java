@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class OutputView {
 
+    private static final String NEW_LINE = System.lineSeparator();
     private static final String NOT_EXIST_MESSAGE = "없음";
 
     private OutputView() {
@@ -18,12 +19,14 @@ public class OutputView {
     }
 
     public static void printPreviewOfEventBenefitsMessage(int visitDay) {
-        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!%n", visitDay);
+        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!%s", visitDay, NEW_LINE);
+        System.out.print(NEW_LINE);
     }
 
     public static void printOrderMenus(OrderMenusDto orderMenusDto) {
         System.out.println("<주문 메뉴>");
         repeatPrintMenus(orderMenusDto.getMenus());
+        System.out.print(NEW_LINE);
     }
 
     public static void printTotalOrderAmountBeforeDiscount(int totalOrderAmountBeforeDiscount) {
@@ -51,7 +54,7 @@ public class OutputView {
 
     private static void repeatPrintMenus(Map<String, Integer> menus) {
         for (String menuName : menus.keySet()) {
-            System.out.printf("%s %d개%n", menuName, menus.get(menuName));
+            System.out.printf("%s %d개%s", menuName, menus.get(menuName), NEW_LINE);
         }
     }
 
@@ -63,8 +66,8 @@ public class OutputView {
             return;
         }
         for (String benefitName : benefitDetails.keySet()) {
-            System.out.printf("%s: %s%n",
-                    benefitName, convertNumberToKoreanWonFormat(-benefitDetails.get(benefitName)));
+            System.out.printf("%s: %s%s",
+                    benefitName, convertNumberToKoreanWonFormat(-benefitDetails.get(benefitName)), NEW_LINE);
         }
     }
 

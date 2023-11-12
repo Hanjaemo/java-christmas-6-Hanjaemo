@@ -2,6 +2,7 @@ package christmas.domain;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Order {
 
@@ -41,5 +42,13 @@ public class Order {
 
     public void addMenu(Menu menu) {
         menus.put(menu, menus.getOrDefault(menu, 0) + 1);
+    }
+
+    public Map<String, Integer> getOrderMenus() {
+        return menus.entrySet()
+                .stream()
+                .collect(Collectors.toMap(
+                        menu -> menu.getKey().getName(),
+                        menu -> menu.getValue()));
     }
 }
