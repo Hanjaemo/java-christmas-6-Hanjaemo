@@ -45,7 +45,7 @@
   - 2만 원 이상: 산타 🎅🏻
 
 ### ExpectedPaymentAmountCalculator
-- [ ] 할인 후 예상 결제 금액을 계산한다.
+- [x] 할인 후 예상 결제 금액을 계산한다.
 
 ### InputView
 - [ ] 12월 중 식당 예상 방문 날짜를 입력 받는다.
