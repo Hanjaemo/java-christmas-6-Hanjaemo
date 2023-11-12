@@ -50,7 +50,7 @@ public class InputView {
 
     private static void validateOrderMenusRegex(String input) {
         if (invalidOrderRegex(input)) {
-            throw new IllegalArgumentException("[ERROR] 입력 형식이 일치하지 않습니다.");
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
