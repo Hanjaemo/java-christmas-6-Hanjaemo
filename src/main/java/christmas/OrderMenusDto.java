@@ -1,21 +1,24 @@
 package christmas;
 
-import java.util.List;
+import christmas.domain.order.OrderMenu;
+import christmas.domain.order.OrderMenus;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import christmas.domain.order.OrderMenu;
 
 public class OrderMenusDto {
 
     private final Map<String, Integer> menus;
 
-    public OrderMenusDto(List<OrderMenu> orderMenus) {
-        this.menus = orderMenus.stream()
+    private OrderMenusDto(OrderMenus orderMenus) {
+        this.menus = orderMenus.getOrderMenus()
+                .stream()
                 .collect(Collectors.toMap(
                         orderMenu -> orderMenu.getMenu().getName(),
-                        OrderMenu::getQuantity
-                ));
+                        OrderMenu::getQuantity));
+    }
+
+    public static OrderMenusDto from(OrderMenus orderMenus) {
+        return new OrderMenusDto(orderMenus);
     }
 
     public Map<String, Integer> getMenus() {

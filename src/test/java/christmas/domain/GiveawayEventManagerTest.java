@@ -1,16 +1,15 @@
 package christmas.domain;
 
+import christmas.domain.event.EventManager;
+import christmas.domain.event.GiveawayEventManager;
+import christmas.domain.menu.Menu;
+import christmas.domain.order.OrderMenu;
+import christmas.domain.order.OrderMenus;
 import java.util.ArrayList;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import christmas.domain.event.EventManager;
-import christmas.domain.event.GiveawayEventManager;
-import christmas.domain.menu.Menu;
-import christmas.domain.order.Order;
-import christmas.domain.order.OrderMenu;
 
 class GiveawayEventManagerTest {
 
@@ -18,11 +17,12 @@ class GiveawayEventManagerTest {
     @Test
     void applyEvent_Success_ByTotalOrderAmountIsMoreThan120_000() {
         // given
-        List<OrderMenu> orderMenus = new ArrayList<>();
-        orderMenus.add(new OrderMenu(Menu.MUSHROOM_SOUP, 1));
-        orderMenus.add(new OrderMenu(Menu.T_BONE_STEAK, 1));
-        orderMenus.add(new OrderMenu(Menu.RED_WINE, 1));
-        EventManager eventManager = new GiveawayEventManager(new BenefitDetails(), new Order(orderMenus));
+        List<OrderMenu> orderMenuList = new ArrayList<>();
+        orderMenuList.add(new OrderMenu(Menu.MUSHROOM_SOUP, 1));
+        orderMenuList.add(new OrderMenu(Menu.T_BONE_STEAK, 1));
+        orderMenuList.add(new OrderMenu(Menu.RED_WINE, 1));
+        OrderMenus orderMenus = new OrderMenus(orderMenuList);
+        EventManager eventManager = new GiveawayEventManager(new BenefitDetails(), orderMenus);
 
         // when
         int discount = eventManager.applyEvent(createVisitDay(4));
@@ -35,11 +35,11 @@ class GiveawayEventManagerTest {
     @Test
     void applyEvent_ReturnZero_ByTotalOrderAmountIsLessThan120_000() {
         // given
-        List<OrderMenu> orderMenus = List.of(
-                new OrderMenu(Menu.MUSHROOM_SOUP, 1),
-                new OrderMenu(Menu.RED_WINE, 1)
-        );
-        EventManager eventManager = new GiveawayEventManager(new BenefitDetails(), new Order(orderMenus));
+        List<OrderMenu> orderMenuList = new ArrayList<>();
+        orderMenuList.add(new OrderMenu(Menu.MUSHROOM_SOUP, 1));
+        orderMenuList.add(new OrderMenu(Menu.RED_WINE, 1));
+        OrderMenus orderMenus = new OrderMenus(orderMenuList);
+        EventManager eventManager = new GiveawayEventManager(new BenefitDetails(), orderMenus);
 
         // when
         int discount = eventManager.applyEvent(createVisitDay(5));

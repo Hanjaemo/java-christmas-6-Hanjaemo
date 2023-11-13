@@ -4,11 +4,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Order {
+public class OrderMenus {
 
     private final List<OrderMenu> orderMenus;
 
-    public Order(List<OrderMenu> orderMenus) {
+    public OrderMenus(List<OrderMenu> orderMenus) {
         validateTotalQuantity(orderMenus);
         validateDuplicated(orderMenus);
         this.orderMenus = orderMenus;
@@ -30,6 +30,12 @@ public class Order {
         }
     }
 
+    public int calculateTotalOrderAmount() {
+        return orderMenus.stream()
+                .mapToInt(OrderMenu::calculatePrice)
+                .sum();
+    }
+
     public int countMainMenus() {
         return orderMenus.stream()
                 .filter(OrderMenu::isMenuMain)
@@ -41,12 +47,6 @@ public class Order {
         return orderMenus.stream()
                 .filter(OrderMenu::isMenuDessert)
                 .mapToInt(OrderMenu::getQuantity)
-                .sum();
-    }
-
-    public int calculateTotalOrderAmount() {
-        return orderMenus.stream()
-                .mapToInt(OrderMenu::calculatePrice)
                 .sum();
     }
 

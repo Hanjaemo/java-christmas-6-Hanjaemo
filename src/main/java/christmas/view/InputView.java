@@ -1,7 +1,10 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class InputView {
 
@@ -32,12 +35,13 @@ public class InputView {
         }
     }
 
-    public static String readOrderMenus() {
+    public static List<String> readOrderMenus() {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
         String input = Console.readLine();
         validateEmpty(input);
         validateOrderMenusRegex(input);
-        return input;
+        return Arrays.stream(input.split(","))
+                .collect(Collectors.toList());
     }
 
     private static void validateOrderMenusRegex(String input) {

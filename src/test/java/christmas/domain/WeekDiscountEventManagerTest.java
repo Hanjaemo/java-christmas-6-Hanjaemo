@@ -1,31 +1,28 @@
 package christmas.domain;
 
+import christmas.domain.event.EventManager;
+import christmas.domain.event.WeekDiscountEventManager;
+import christmas.domain.menu.Menu;
+import christmas.domain.order.OrderMenu;
+import christmas.domain.order.OrderMenus;
 import java.util.List;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import christmas.domain.event.EventManager;
-import christmas.domain.event.WeekDiscountEventManager;
-import christmas.domain.menu.Menu;
-import christmas.domain.order.Order;
-import christmas.domain.order.OrderMenu;
-
 class WeekDiscountEventManagerTest {
 
-    List<OrderMenu> orderMenus;
+    OrderMenus orderMenus;
     EventManager eventManager;
 
     @BeforeEach
     void init() {
-        orderMenus = List.of(
-                new OrderMenu(Menu.T_BONE_STEAK, 1),
-                new OrderMenu(Menu.CHOCOLATE_CAKE, 2)
+        orderMenus = new OrderMenus(
+                List.of(new OrderMenu(Menu.T_BONE_STEAK, 1), new OrderMenu(Menu.CHOCOLATE_CAKE, 2))
         );
-        eventManager = new WeekDiscountEventManager(new BenefitDetails(), new Order(orderMenus));
+        eventManager = new WeekDiscountEventManager(new BenefitDetails(), orderMenus);
     }
 
     @DisplayName("방문 날짜가 평일이면 평일 할인 이벤트를 적용한다.")

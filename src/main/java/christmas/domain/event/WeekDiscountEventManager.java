@@ -1,16 +1,16 @@
 package christmas.domain.event;
 
 import christmas.domain.BenefitDetails;
-import christmas.domain.order.Order;
 import christmas.domain.VisitDay;
+import christmas.domain.order.OrderMenus;
 
 public class WeekDiscountEventManager extends EventManager {
 
-    private final Order order;
+    private final OrderMenus orderMenus;
 
-    public WeekDiscountEventManager(BenefitDetails benefitDetails, Order order) {
+    public WeekDiscountEventManager(BenefitDetails benefitDetails, OrderMenus orderMenus) {
         super(benefitDetails);
-        this.order = order;
+        this.orderMenus = orderMenus;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class WeekDiscountEventManager extends EventManager {
     }
 
     private int applyWeekdayEvent() {
-        int discountAmount = order.countDessertMenus() * 2_023;
+        int discountAmount = orderMenus.countDessertMenus() * 2_023;
         if (discountAmount == 0) {
             return discountAmount;
         }
@@ -31,7 +31,7 @@ public class WeekDiscountEventManager extends EventManager {
     }
 
     private int applyWeekendEvent() {
-        int discountAmount = order.countMainMenus() * 2_023;
+        int discountAmount = orderMenus.countMainMenus() * 2_023;
         if (discountAmount == 0) {
             return discountAmount;
         }
