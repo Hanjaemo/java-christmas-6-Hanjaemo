@@ -1,4 +1,10 @@
-package christmas.domain;
+package christmas.domain.event;
+
+import christmas.domain.BenefitDetails;
+import christmas.domain.menu.Menu;
+import christmas.domain.order.Order;
+import christmas.domain.order.OrderMenu;
+import christmas.domain.VisitDay;
 
 public class GiveawayEventManager extends EventManager {
 

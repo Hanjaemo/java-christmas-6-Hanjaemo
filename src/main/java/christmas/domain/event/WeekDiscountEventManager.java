@@ -1,4 +1,8 @@
-package christmas.domain;
+package christmas.domain.event;
+
+import christmas.domain.BenefitDetails;
+import christmas.domain.order.Order;
+import christmas.domain.VisitDay;
 
 public class WeekDiscountEventManager extends EventManager {
 

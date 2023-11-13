@@ -7,6 +7,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import christmas.domain.event.EventBadge;
+import christmas.domain.event.EventBadgeAssigner;
+
 class EventBadgeAssignerTest {
 
     @DisplayName("총혜택 금액에 따라 12월 이벤트 배지를 부여한다.")

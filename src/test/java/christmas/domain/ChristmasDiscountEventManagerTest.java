@@ -6,6 +6,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import christmas.domain.event.ChristmasDiscountEventManager;
+import christmas.domain.event.EventManager;
+
 class ChristmasDiscountEventManagerTest {
 
     @DisplayName("방문 날짜가 1 이상 25 이하인 경우 크리스마스 디데이 할인 이벤트를 적용한다.")

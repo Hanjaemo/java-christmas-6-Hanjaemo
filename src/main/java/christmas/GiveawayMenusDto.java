@@ -3,7 +3,7 @@ package christmas;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import christmas.domain.Menu;
+import christmas.domain.menu.Menu;
 
 public class GiveawayMenusDto {
 

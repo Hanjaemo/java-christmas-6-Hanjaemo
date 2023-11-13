@@ -6,6 +6,12 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import christmas.domain.event.EventManager;
+import christmas.domain.event.GiveawayEventManager;
+import christmas.domain.menu.Menu;
+import christmas.domain.order.Order;
+import christmas.domain.order.OrderMenu;
+
 class GiveawayEventManagerTest {
 
     @DisplayName("할인 전 총주문 금액이 12만원 이상이면 할인 이벤트를 적용한다.")

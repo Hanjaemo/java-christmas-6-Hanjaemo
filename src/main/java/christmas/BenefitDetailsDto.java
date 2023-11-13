@@ -3,7 +3,7 @@ package christmas;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import christmas.domain.Event;
+import christmas.domain.event.Event;
 
 public class BenefitDetailsDto {
 

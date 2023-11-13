@@ -1,10 +1,11 @@
 package christmas.domain;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import christmas.domain.menu.Menu;
+import christmas.domain.order.OrderMenu;
 
 class OrderMenuTest {
 

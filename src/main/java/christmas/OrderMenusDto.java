@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import christmas.domain.OrderMenu;
+import christmas.domain.order.OrderMenu;
 
 public class OrderMenusDto {
 

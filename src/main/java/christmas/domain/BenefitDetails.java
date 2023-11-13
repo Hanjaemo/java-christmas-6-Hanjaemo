@@ -3,6 +3,9 @@ package christmas.domain;
 import java.util.EnumMap;
 import java.util.Map;
 
+import christmas.domain.event.Event;
+import christmas.domain.menu.Menu;
+
 public class BenefitDetails {
 
     private final Map<Event, Integer> appliedEvents;

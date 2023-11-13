@@ -4,6 +4,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import christmas.domain.event.Event;
+
 class BenefitDetailsTest {
 
     @DisplayName("총혜택 금액은 적용된 이벤트에 따른 할인 금액을 모두 더한 값과 같다.")

@@ -5,6 +5,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import christmas.domain.event.EventManager;
+import christmas.domain.event.SpecialDayDiscountEventManager;
+
 class SpecialDayDiscountEventManagerTest {
 
     private static final int DISCOUNT_AMOUNT = 1_000;

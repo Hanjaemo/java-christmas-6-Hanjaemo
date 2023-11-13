@@ -1,6 +1,8 @@
-package christmas.domain;
+package christmas.domain.order;
 
 import java.util.Objects;
+
+import christmas.domain.menu.Menu;
 
 public class OrderMenu {
 
