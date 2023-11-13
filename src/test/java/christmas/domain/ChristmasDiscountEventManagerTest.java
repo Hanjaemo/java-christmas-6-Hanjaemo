@@ -1,5 +1,7 @@
 package christmas.domain;
 
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -7,7 +9,11 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import christmas.domain.event.ChristmasDiscountEventManager;
+import christmas.domain.event.EventContext;
 import christmas.domain.event.EventManager;
+import christmas.domain.menu.Menu;
+import christmas.domain.order.OrderMenu;
+import christmas.domain.order.OrderMenus;
 
 class ChristmasDiscountEventManagerTest {
 
@@ -16,11 +22,12 @@ class ChristmasDiscountEventManagerTest {
     @CsvSource(value = {"3,1200", "5,1400", "10,1900", "24,3300", "25,3400"})
     void applyEvent_Success_ByVisitDayIsWithinChristmasPeriod(int visitDay, int expectedDiscountAmount) {
         // given
-        BenefitDetails benefitDetails = new BenefitDetails();
-        EventManager christmasDiscountEventManager = new ChristmasDiscountEventManager(benefitDetails);
+        OrderMenus orderMenus = new OrderMenus(List.of(new OrderMenu(Menu.CHAMPAGNE, 1)));
+        EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
+        EventManager christmasDiscountEventManager = new ChristmasDiscountEventManager();
 
         // when
-        int discountAmount = christmasDiscountEventManager.applyEvent(createVisitDay(visitDay));
+        int discountAmount = christmasDiscountEventManager.applyEvent(eventContext, new BenefitDetails());
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(expectedDiscountAmount);
@@ -31,11 +38,12 @@ class ChristmasDiscountEventManagerTest {
     @ValueSource(ints = {26, 27, 29, 30, 31})
     void applyEvent_ReturnZero_ByVisitDayIsNotWithinChristmasPeriod(int visitDay) {
         // given
-        BenefitDetails benefitDetails = new BenefitDetails();
-        EventManager christmasDiscountEventManager = new ChristmasDiscountEventManager(benefitDetails);
+        OrderMenus orderMenus = new OrderMenus(List.of(new OrderMenu(Menu.CHAMPAGNE, 1)));
+        EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
+        EventManager christmasDiscountEventManager = new ChristmasDiscountEventManager();
 
         // when
-        int discountAmount = christmasDiscountEventManager.applyEvent(createVisitDay(visitDay));
+        int discountAmount = christmasDiscountEventManager.applyEvent(eventContext, new BenefitDetails());
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(0);

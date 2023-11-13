@@ -1,28 +1,19 @@
 package christmas.domain.event;
 
 import christmas.domain.BenefitDetails;
-import christmas.domain.VisitDay;
-import christmas.domain.order.OrderMenus;
 
-public class WeekDiscountEventManager extends EventManager {
-
-    private final OrderMenus orderMenus;
-
-    public WeekDiscountEventManager(BenefitDetails benefitDetails, OrderMenus orderMenus) {
-        super(benefitDetails);
-        this.orderMenus = orderMenus;
-    }
+public class WeekDiscountEventManager implements EventManager {
 
     @Override
-    public int applyEvent(VisitDay visitDay) {
-        if (visitDay.isWeekend()) {
-            return applyWeekendEvent();
+    public int applyEvent(EventContext eventContext, BenefitDetails benefitDetails) {
+        if (eventContext.visitDay().isWeekend()) {
+            return applyWeekendEvent(benefitDetails, eventContext);
         }
-        return applyWeekdayEvent();
+        return applyWeekdayEvent(benefitDetails, eventContext);
     }
 
-    private int applyWeekdayEvent() {
-        int discountAmount = orderMenus.countDessertMenus() * 2_023;
+    private int applyWeekdayEvent(BenefitDetails benefitDetails, EventContext eventContext) {
+        int discountAmount = eventContext.orderMenus().countDessertMenus() * 2_023;
         if (discountAmount == 0) {
             return discountAmount;
         }
@@ -30,8 +21,8 @@ public class WeekDiscountEventManager extends EventManager {
         return discountAmount;
     }
 
-    private int applyWeekendEvent() {
-        int discountAmount = orderMenus.countMainMenus() * 2_023;
+    private int applyWeekendEvent(BenefitDetails benefitDetails, EventContext eventContext) {
+        int discountAmount = eventContext.orderMenus().countMainMenus() * 2_023;
         if (discountAmount == 0) {
             return discountAmount;
         }

@@ -1,12 +1,18 @@
 package christmas.domain;
 
+import java.util.List;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import christmas.domain.event.EventContext;
 import christmas.domain.event.EventManager;
 import christmas.domain.event.SpecialDayDiscountEventManager;
+import christmas.domain.menu.Menu;
+import christmas.domain.order.OrderMenu;
+import christmas.domain.order.OrderMenus;
 
 class SpecialDayDiscountEventManagerTest {
 
@@ -17,11 +23,12 @@ class SpecialDayDiscountEventManagerTest {
     @ValueSource(ints = {3, 10, 17, 24, 25, 31})
     void applyEvent_Success_ByVisitDayIsSpecialDay(int visitDay) {
         // given
-        BenefitDetails benefitDetails = new BenefitDetails();
-        EventManager eventManager = new SpecialDayDiscountEventManager(benefitDetails, new SpecialDays());
+        OrderMenus orderMenus = new OrderMenus(List.of(new OrderMenu(Menu.CHAMPAGNE, 1)));
+        EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
+        EventManager eventManager = new SpecialDayDiscountEventManager();
 
         // when
-        int discountAmount = eventManager.applyEvent(createVisitDay(visitDay));
+        int discountAmount = eventManager.applyEvent(eventContext, new BenefitDetails());
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(DISCOUNT_AMOUNT);
@@ -32,11 +39,12 @@ class SpecialDayDiscountEventManagerTest {
     @ValueSource(ints = {2, 4, 6, 12, 18, 22, 26, 30})
     void applyEvent_ReturnZero_ByVisitDayIsNotSpecialDay(int visitDay) {
         // given
-        BenefitDetails benefitDetails = new BenefitDetails();
-        EventManager eventManager = new SpecialDayDiscountEventManager(benefitDetails, new SpecialDays());
+        OrderMenus orderMenus = new OrderMenus(List.of(new OrderMenu(Menu.CHAMPAGNE, 1)));
+        EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
+        EventManager eventManager = new SpecialDayDiscountEventManager();
 
         // when
-        int discountAmount = eventManager.applyEvent(createVisitDay(visitDay));
+        int discountAmount = eventManager.applyEvent(eventContext, new BenefitDetails());
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(0);
