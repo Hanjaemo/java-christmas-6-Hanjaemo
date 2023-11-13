@@ -12,12 +12,26 @@ public class WeekDiscountEventManager extends EventManager {
     @Override
     public int applyEvent(VisitDay visitDay) {
         if (visitDay.isWeekend()) {
-            int discountAmount = order.countMainMenus() * 2_023;
-            benefitDetails.addEvent(Event.WEEKEND_DISCOUNT, discountAmount);
+            return applyWeekendEvent();
+        }
+        return applyWeekdayEvent();
+    }
+
+    private int applyWeekdayEvent() {
+        int discountAmount = order.countDessertMenus() * 2_023;
+        if (discountAmount == 0) {
             return discountAmount;
         }
-        int discountAmount = order.countDessertMenus() * 2_023;
         benefitDetails.addEvent(Event.WEEKDAY_DISCOUNT, discountAmount);
+        return discountAmount;
+    }
+
+    private int applyWeekendEvent() {
+        int discountAmount = order.countMainMenus() * 2_023;
+        if (discountAmount == 0) {
+            return discountAmount;
+        }
+        benefitDetails.addEvent(Event.WEEKEND_DISCOUNT, discountAmount);
         return discountAmount;
     }
 }
