@@ -96,4 +96,8 @@ public class OutputView {
     private static void printNewLine() {
         System.out.print(NEW_LINE);
     }
+
+    public static void printErrorMessage(IllegalArgumentException e) {
+        System.out.println(e.getMessage());
+    }
 }
