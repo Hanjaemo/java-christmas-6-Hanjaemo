@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import java.util.List;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,14 +10,14 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class WeekDiscountEventManagerTest {
 
-    Map<Menu, Integer> orderMenus;
+    List<OrderMenu> orderMenus;
     EventManager eventManager;
 
     @BeforeEach
     void init() {
-        orderMenus = Map.of(
-                Menu.T_BONE_STEAK, 1,
-                Menu.CHOCOLATE_CAKE, 2
+        orderMenus = List.of(
+                new OrderMenu(Menu.T_BONE_STEAK, 1),
+                new OrderMenu(Menu.CHOCOLATE_CAKE, 2)
         );
         eventManager = new WeekDiscountEventManager(new BenefitDetails(), new Order(orderMenus));
     }

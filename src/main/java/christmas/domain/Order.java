@@ -1,78 +1,60 @@
 package christmas.domain;
 
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 public class Order {
 
-    private final Map<Menu, Integer> menus;
+    private final List<OrderMenu> orderMenus;
 
-    public Order(Map<Menu, Integer> menus) {
-        validateEachMenuQuantity(menus);
-        validateTotalMenuQuantity(menus);
-        validateDuplicated(menus);
-        this.menus = menus;
+    public Order(List<OrderMenu> orderMenus) {
+        validateTotalQuantity(orderMenus);
+        validateDuplicated(orderMenus);
+        this.orderMenus = orderMenus;
     }
 
-    private void validateEachMenuQuantity(Map<Menu, Integer> menus) {
-        for (Integer quantity : menus.values()) {
-            if (quantity < 1 || quantity > 20) {
-                throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-            }
-        }
-    }
-
-    private void validateTotalMenuQuantity(Map<Menu, Integer> menus) {
-        int totalMenuQuantity = menus.values().stream()
-                .mapToInt(quantity -> quantity)
+    private void validateTotalQuantity(List<OrderMenu> orderMenus) {
+        int totalQuantity = orderMenus.stream()
+                .mapToInt(OrderMenu::getQuantity)
                 .sum();
-        if (totalMenuQuantity > 20) {
+        if (totalQuantity < 1 || totalQuantity > 20) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
-    private void validateDuplicated(Map<Menu, Integer> menus) {
-
+    private void validateDuplicated(List<OrderMenu> orderMenus) {
+        Set<OrderMenu> distinctOrderMenus = new HashSet<>(orderMenus);
+        if (distinctOrderMenus.size() != orderMenus.size()) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
     }
 
     public int countMainMenus() {
-        List<Menu> mainMenus = menus.keySet()
-                .stream()
-                .filter(Menu::isMain)
-                .toList();
-        return mainMenus.stream()
-                .mapToInt(menus::get)
+        return orderMenus.stream()
+                .filter(OrderMenu::isMenuMain)
+                .mapToInt(OrderMenu::getQuantity)
                 .sum();
     }
 
     public int countDessertMenus() {
-        List<Menu> mainMenus = menus.keySet()
-                .stream()
-                .filter(Menu::isDessert)
-                .toList();
-        return mainMenus.stream()
-                .mapToInt(menus::get)
+        return orderMenus.stream()
+                .filter(OrderMenu::isMenuDessert)
+                .mapToInt(OrderMenu::getQuantity)
                 .sum();
     }
 
     public int calculateTotalOrderAmount() {
-        int totalOrderAmount = 0;
-        for (Menu menu : menus.keySet()) {
-            totalOrderAmount += (menu.getPrice() * menus.get(menu));
-        }
-        return totalOrderAmount;
+        return orderMenus.stream()
+                .mapToInt(OrderMenu::calculatePrice)
+                .sum();
     }
 
-    public void addMenu(Menu menu) {
-        menus.put(menu, menus.getOrDefault(menu, 0) + 1);
+    public void addOrderMenu(OrderMenu orderMenu) {
+        orderMenus.add(orderMenu);
     }
 
-    public Map<String, Integer> getOrderMenus() {
-        return menus.entrySet()
-                .stream()
-                .collect(Collectors.toMap(
-                        menu -> menu.getKey().getName(),
-                        menu -> menu.getValue()));
+    public List<OrderMenu> getOrderMenus() {
+        return List.copyOf(orderMenus);
     }
 }

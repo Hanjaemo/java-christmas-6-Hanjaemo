@@ -1,7 +1,7 @@
 package christmas.domain;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,10 +12,10 @@ class GiveawayEventManagerTest {
     @Test
     void applyEvent_Success_ByTotalOrderAmountIsMoreThan120_000() {
         // given
-        Map<Menu, Integer> orderMenus = new EnumMap<>(Menu.class);
-        orderMenus.put(Menu.MUSHROOM_SOUP, 1);
-        orderMenus.put(Menu.T_BONE_STEAK, 1);
-        orderMenus.put(Menu.RED_WINE, 1);
+        List<OrderMenu> orderMenus = new ArrayList<>();
+        orderMenus.add(new OrderMenu(Menu.MUSHROOM_SOUP, 1));
+        orderMenus.add(new OrderMenu(Menu.T_BONE_STEAK, 1));
+        orderMenus.add(new OrderMenu(Menu.RED_WINE, 1));
         EventManager eventManager = new GiveawayEventManager(new BenefitDetails(), new Order(orderMenus));
 
         // when
@@ -29,9 +29,10 @@ class GiveawayEventManagerTest {
     @Test
     void applyEvent_ReturnZero_ByTotalOrderAmountIsLessThan120_000() {
         // given
-        Map<Menu, Integer> orderMenus = new EnumMap<>(Menu.class);
-        orderMenus.put(Menu.MUSHROOM_SOUP, 1);
-        orderMenus.put(Menu.RED_WINE, 1);
+        List<OrderMenu> orderMenus = List.of(
+                new OrderMenu(Menu.MUSHROOM_SOUP, 1),
+                new OrderMenu(Menu.RED_WINE, 1)
+        );
         EventManager eventManager = new GiveawayEventManager(new BenefitDetails(), new Order(orderMenus));
 
         // when

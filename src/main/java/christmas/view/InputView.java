@@ -1,11 +1,7 @@
 package christmas.view;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
 import camp.nextstep.edu.missionutils.Console;
+import java.util.regex.Pattern;
 
 public class InputView {
 
@@ -36,16 +32,12 @@ public class InputView {
         }
     }
 
-    public static Map<String, Integer> readOrderMenus() {
+    public static String readOrderMenus() {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
         String input = Console.readLine();
         validateEmpty(input);
         validateOrderMenusRegex(input);
-        return Arrays.stream(input.split(","))
-                .map(menu -> menu.split("-"))
-                .collect(Collectors.toMap(
-                        menuInfo -> menuInfo[0],
-                        menuInfo -> toInt(menuInfo[1])));
+        return input;
     }
 
     private static void validateOrderMenusRegex(String input) {

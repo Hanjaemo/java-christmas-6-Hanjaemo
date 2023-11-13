@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import java.util.List;
 import java.util.Map;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,15 +9,15 @@ import org.junit.jupiter.api.Test;
 
 class OrderTest {
 
-    Map<Menu, Integer> orderMenus;
+    List<OrderMenu> orderMenus;
     Order order;
 
     @BeforeEach
     void setUp() {
-        orderMenus = Map.of(
-                Menu.T_BONE_STEAK, 1,
-                Menu.CHOCOLATE_CAKE, 2,
-                Menu.COKE_ZERO, 2
+        orderMenus = List.of(
+                new OrderMenu(Menu.T_BONE_STEAK, 1),
+                new OrderMenu(Menu.CHOCOLATE_CAKE, 2),
+                new OrderMenu(Menu.COKE_ZERO, 2)
         );
         order = new Order(orderMenus);
     }

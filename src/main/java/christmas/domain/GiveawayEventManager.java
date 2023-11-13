@@ -15,7 +15,7 @@ public class GiveawayEventManager extends EventManager {
         if (totalOrderAmount < 120_000) {
             return 0;
         }
-        order.addMenu(Menu.CHAMPAGNE);
+        order.addOrderMenu(new OrderMenu(Menu.CHAMPAGNE, 1));
         benefitDetails.giveAwayMenu(Menu.CHAMPAGNE);
         int discount = Menu.CHAMPAGNE.getPrice();
         benefitDetails.addEvent(Event.GIVEAWAY, discount);
