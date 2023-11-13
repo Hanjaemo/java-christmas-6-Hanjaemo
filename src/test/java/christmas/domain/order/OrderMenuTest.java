@@ -70,4 +70,14 @@ class OrderMenuTest {
         // when, then
         Assertions.assertThat(orderMenu.isMenuDessert()).isFalse();
     }
+
+    @DisplayName("주문한 메뉴의 수량에 따른 가격을 계산한다.")
+    @Test
+    void calculatePrice_Success() {
+        // given
+        OrderMenu orderMenu = new OrderMenu(Menu.COKE_ZERO, 3);
+
+        // when, then
+        Assertions.assertThat(orderMenu.calculatePrice()).isEqualTo(9_000);
+    }
 }
