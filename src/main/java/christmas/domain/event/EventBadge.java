@@ -5,8 +5,8 @@ import java.util.function.Predicate;
 public enum EventBadge {
 
     SANTA("산타", (amount) -> amount >= 20_000),
-    TREE("트리", (amount) -> amount >= 10_000),
-    STAR("별", (amount) -> amount >= 5_000),
+    TREE("트리", (amount) -> amount >= 10_000 && amount < 20_000),
+    STAR("별", (amount) -> amount >= 5_000 && amount < 10_000),
     MISS("없음", (amount) -> amount < 5_000);
 
     private final String name;
