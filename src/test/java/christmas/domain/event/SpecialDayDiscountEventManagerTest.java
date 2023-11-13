@@ -1,31 +1,36 @@
-package christmas.domain;
+package christmas.domain.event;
 
+import christmas.domain.BenefitDetails;
+import christmas.domain.VisitDay;
+import christmas.domain.menu.Menu;
+import christmas.domain.order.OrderMenu;
+import christmas.domain.order.OrderMenus;
 import java.util.List;
-
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import christmas.domain.event.EventContext;
-import christmas.domain.event.EventManager;
-import christmas.domain.event.SpecialDayDiscountEventManager;
-import christmas.domain.menu.Menu;
-import christmas.domain.order.OrderMenu;
-import christmas.domain.order.OrderMenus;
-
 class SpecialDayDiscountEventManagerTest {
 
     private static final int DISCOUNT_AMOUNT = 1_000;
+
+    OrderMenus orderMenus;
+    EventManager eventManager;
+
+    @BeforeEach
+    void init() {
+        orderMenus = new OrderMenus(List.of(new OrderMenu(Menu.CHAMPAGNE, 1)));
+        eventManager = new SpecialDayDiscountEventManager();
+    }
 
     @DisplayName("방문 날짜가 특별한 날이면 특별 할인 이벤트를 적용한다.")
     @ParameterizedTest
     @ValueSource(ints = {3, 10, 17, 24, 25, 31})
     void applyEvent_Success_ByVisitDayIsSpecialDay(int visitDay) {
         // given
-        OrderMenus orderMenus = new OrderMenus(List.of(new OrderMenu(Menu.CHAMPAGNE, 1)));
         EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
-        EventManager eventManager = new SpecialDayDiscountEventManager();
 
         // when
         int discountAmount = eventManager.applyEvent(eventContext, new BenefitDetails());

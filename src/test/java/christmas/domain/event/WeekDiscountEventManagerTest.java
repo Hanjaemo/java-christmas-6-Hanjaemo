@@ -1,8 +1,7 @@
-package christmas.domain;
+package christmas.domain.event;
 
-import christmas.domain.event.EventContext;
-import christmas.domain.event.EventManager;
-import christmas.domain.event.WeekDiscountEventManager;
+import christmas.domain.BenefitDetails;
+import christmas.domain.VisitDay;
 import christmas.domain.menu.Menu;
 import christmas.domain.order.OrderMenu;
 import christmas.domain.order.OrderMenus;
@@ -16,13 +15,14 @@ import org.junit.jupiter.params.provider.ValueSource;
 class WeekDiscountEventManagerTest {
 
     OrderMenus orderMenus;
+    EventManager eventManager;
 
     @BeforeEach
     void init() {
         orderMenus = new OrderMenus(
                 List.of(new OrderMenu(Menu.T_BONE_STEAK, 1), new OrderMenu(Menu.CHOCOLATE_CAKE, 2))
         );
-
+        eventManager = new WeekDiscountEventManager();
     }
 
     @DisplayName("방문 날짜가 평일이면 평일 할인 이벤트를 적용한다.")
@@ -31,7 +31,6 @@ class WeekDiscountEventManagerTest {
     void applyEvent_Success_ByVisitDayIsWeekday(int visitDay) {
         // given
         EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
-        EventManager eventManager = new WeekDiscountEventManager();
 
         // when
         int discountAmount = eventManager.applyEvent(eventContext, new BenefitDetails());
@@ -46,7 +45,6 @@ class WeekDiscountEventManagerTest {
     void applyEvent_Success_ByVisitDayIsWeekend(int visitDay) {
         // given
         EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
-        EventManager eventManager = new WeekDiscountEventManager();
 
         // when
         int discountAmount = eventManager.applyEvent(eventContext, new BenefitDetails());

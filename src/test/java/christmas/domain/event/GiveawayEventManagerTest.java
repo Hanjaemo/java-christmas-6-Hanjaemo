@@ -1,8 +1,7 @@
-package christmas.domain;
+package christmas.domain.event;
 
-import christmas.domain.event.EventContext;
-import christmas.domain.event.EventManager;
-import christmas.domain.event.GiveawayEventManager;
+import christmas.domain.BenefitDetails;
+import christmas.domain.VisitDay;
 import christmas.domain.menu.Menu;
 import christmas.domain.order.OrderMenu;
 import christmas.domain.order.OrderMenus;
@@ -23,7 +22,7 @@ class GiveawayEventManagerTest {
         orderMenuList.add(new OrderMenu(Menu.T_BONE_STEAK, 1));
         orderMenuList.add(new OrderMenu(Menu.RED_WINE, 1));
         OrderMenus orderMenus = new OrderMenus(orderMenuList);
-        EventContext eventContext = new EventContext(new VisitDay(5), orderMenus);
+        EventContext eventContext = new EventContext(createVisitDay(23), orderMenus);
         EventManager eventManager = new GiveawayEventManager();
 
         // when
@@ -41,7 +40,7 @@ class GiveawayEventManagerTest {
         orderMenuList.add(new OrderMenu(Menu.MUSHROOM_SOUP, 1));
         orderMenuList.add(new OrderMenu(Menu.RED_WINE, 1));
         OrderMenus orderMenus = new OrderMenus(orderMenuList);
-        EventContext eventContext = new EventContext(new VisitDay(5), orderMenus);
+        EventContext eventContext = new EventContext(createVisitDay(5), orderMenus);
         EventManager eventManager = new GiveawayEventManager();
 
         // when
@@ -51,7 +50,7 @@ class GiveawayEventManagerTest {
         Assertions.assertThat(discount).isEqualTo(0);
     }
 
-    VisitDay createVisitDay(int visitDay) {
+    private VisitDay createVisitDay(int visitDay) {
         return new VisitDay(visitDay);
     }
 }

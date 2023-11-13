@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.event;
 
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
@@ -6,9 +6,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import christmas.domain.event.EventBadge;
-import christmas.domain.event.EventBadgeAssigner;
 
 class EventBadgeAssignerTest {
 

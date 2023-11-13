@@ -1,10 +1,9 @@
 package christmas.domain;
 
+import christmas.domain.event.Event;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import christmas.domain.event.Event;
 
 class BenefitDetailsTest {
 
@@ -22,5 +21,4 @@ class BenefitDetailsTest {
         // then
         Assertions.assertThat(totalBenefitAmount).isEqualTo(27_000);
     }
-
 }
