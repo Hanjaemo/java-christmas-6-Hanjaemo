@@ -37,7 +37,7 @@ class VisitDayTest {
         VisitDay createdVisitDay = new VisitDay(visitDay);
 
         // when, then
-        Assertions.assertThat(createdVisitDay.isNotWithinChristmasPeriod()).isTrue();
+        Assertions.assertThat(createdVisitDay.isNotWithinChristmasPeriod(25)).isTrue();
     }
 
     @DisplayName("방문 날짜를 1 감소시킨다.")
