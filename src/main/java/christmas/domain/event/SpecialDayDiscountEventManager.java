@@ -1,5 +1,6 @@
 package christmas.domain.event;
 
+import christmas.CustomerInfo;
 import christmas.domain.BenefitDetails;
 import christmas.domain.SpecialDays;
 
@@ -14,8 +15,8 @@ public class SpecialDayDiscountEventManager implements EventManager {
     }
 
     @Override
-    public int applyEvent(EventContext eventContext, BenefitDetails benefitDetails) {
-        if (specialDays.notContains(eventContext.visitDay())) {
+    public int applyEvent(CustomerInfo customerInfo, BenefitDetails benefitDetails) {
+        if (specialDays.notContains(customerInfo.visitDay())) {
             return 0;
         }
         benefitDetails.addEvent(Event.SPECIAL_DISCOUNT, DISCOUNT_AMOUNT);

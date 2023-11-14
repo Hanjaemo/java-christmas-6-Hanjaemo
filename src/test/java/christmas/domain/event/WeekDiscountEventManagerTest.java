@@ -1,5 +1,6 @@
 package christmas.domain.event;
 
+import christmas.CustomerInfo;
 import christmas.domain.BenefitDetails;
 import christmas.domain.VisitDay;
 import christmas.domain.menu.Menu;
@@ -30,10 +31,10 @@ class WeekDiscountEventManagerTest {
     @ValueSource(ints = {3, 4, 12, 25, 31})
     void applyEvent_Success_ByVisitDayIsWeekday(int visitDay) {
         // given
-        EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
+        CustomerInfo customerInfo = new CustomerInfo(createVisitDay(visitDay), orderMenus);
 
         // when
-        int discountAmount = eventManager.applyEvent(eventContext, new BenefitDetails());
+        int discountAmount = eventManager.applyEvent(customerInfo, new BenefitDetails());
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(2023 * 2);
@@ -44,10 +45,10 @@ class WeekDiscountEventManagerTest {
     @ValueSource(ints = {1, 9, 22, 30})
     void applyEvent_Success_ByVisitDayIsWeekend(int visitDay) {
         // given
-        EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
+        CustomerInfo customerInfo = new CustomerInfo(createVisitDay(visitDay), orderMenus);
 
         // when
-        int discountAmount = eventManager.applyEvent(eventContext, new BenefitDetails());
+        int discountAmount = eventManager.applyEvent(customerInfo, new BenefitDetails());
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(2023);

@@ -1,5 +1,6 @@
 package christmas.domain.event;
 
+import christmas.CustomerInfo;
 import christmas.domain.BenefitDetails;
 import christmas.domain.VisitDay;
 import christmas.domain.menu.Menu;
@@ -30,10 +31,10 @@ class SpecialDayDiscountEventManagerTest {
     @ValueSource(ints = {3, 10, 17, 24, 25, 31})
     void applyEvent_Success_ByVisitDayIsSpecialDay(int visitDay) {
         // given
-        EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
+        CustomerInfo customerInfo = new CustomerInfo(createVisitDay(visitDay), orderMenus);
 
         // when
-        int discountAmount = eventManager.applyEvent(eventContext, new BenefitDetails());
+        int discountAmount = eventManager.applyEvent(customerInfo, new BenefitDetails());
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(DISCOUNT_AMOUNT);
@@ -44,10 +45,10 @@ class SpecialDayDiscountEventManagerTest {
     @ValueSource(ints = {2, 4, 6, 12, 18, 22, 26, 30})
     void applyEvent_ReturnZero_ByVisitDayIsNotSpecialDay(int visitDay) {
         // given
-        EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
+        CustomerInfo customerInfo = new CustomerInfo(createVisitDay(visitDay), orderMenus);
 
         // when
-        int discountAmount = eventManager.applyEvent(eventContext, new BenefitDetails());
+        int discountAmount = eventManager.applyEvent(customerInfo, new BenefitDetails());
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(0);

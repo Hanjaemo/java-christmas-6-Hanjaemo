@@ -1,5 +1,6 @@
 package christmas.domain.event;
 
+import christmas.CustomerInfo;
 import christmas.domain.BenefitDetails;
 import christmas.domain.VisitDay;
 import christmas.domain.menu.Menu;
@@ -29,10 +30,10 @@ class ChristmasDiscountEventManagerTest {
     @CsvSource(value = {"3,1200", "5,1400", "10,1900", "24,3300", "25,3400"})
     void applyEvent_Success_ByVisitDayIsWithinChristmasPeriod(int visitDay, int expectedDiscountAmount) {
         // given
-        EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
+        CustomerInfo customerInfo = new CustomerInfo(createVisitDay(visitDay), orderMenus);
 
         // when
-        int discountAmount = christmasDiscountEventManager.applyEvent(eventContext, new BenefitDetails());
+        int discountAmount = christmasDiscountEventManager.applyEvent(customerInfo, new BenefitDetails());
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(expectedDiscountAmount);
@@ -43,10 +44,10 @@ class ChristmasDiscountEventManagerTest {
     @ValueSource(ints = {26, 27, 29, 30, 31})
     void applyEvent_ReturnZero_ByVisitDayIsNotWithinChristmasPeriod(int visitDay) {
         // given
-        EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
+        CustomerInfo customerInfo = new CustomerInfo(createVisitDay(visitDay), orderMenus);
 
         // when
-        int discountAmount = christmasDiscountEventManager.applyEvent(eventContext, new BenefitDetails());
+        int discountAmount = christmasDiscountEventManager.applyEvent(customerInfo, new BenefitDetails());
 
         // then
         Assertions.assertThat(discountAmount).isEqualTo(0);

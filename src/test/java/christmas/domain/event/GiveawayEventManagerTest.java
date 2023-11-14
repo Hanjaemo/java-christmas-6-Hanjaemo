@@ -1,5 +1,6 @@
 package christmas.domain.event;
 
+import christmas.CustomerInfo;
 import christmas.domain.BenefitDetails;
 import christmas.domain.VisitDay;
 import christmas.domain.menu.Menu;
@@ -23,12 +24,12 @@ class GiveawayEventManagerTest {
         orderMenuList.add(createOrderMenu(Menu.RED_WINE, 1));
         OrderMenus orderMenus = new OrderMenus(orderMenuList);
 
-        EventContext eventContext = new EventContext(createVisitDay(23), orderMenus);
+        CustomerInfo customerInfo = new CustomerInfo(createVisitDay(23), orderMenus);
 
         EventManager eventManager = new GiveawayEventManager();
 
         // when
-        int discount = eventManager.applyEvent(eventContext, new BenefitDetails());
+        int discount = eventManager.applyEvent(customerInfo, new BenefitDetails());
 
         // then
         Assertions.assertThat(discount).isEqualTo(25_000);
@@ -43,12 +44,12 @@ class GiveawayEventManagerTest {
         orderMenuList.add(createOrderMenu(Menu.RED_WINE, 1));
         OrderMenus orderMenus = new OrderMenus(orderMenuList);
 
-        EventContext eventContext = new EventContext(createVisitDay(5), orderMenus);
+        CustomerInfo customerInfo = new CustomerInfo(createVisitDay(5), orderMenus);
 
         EventManager eventManager = new GiveawayEventManager();
 
         // when
-        int discount = eventManager.applyEvent(eventContext, new BenefitDetails());
+        int discount = eventManager.applyEvent(customerInfo, new BenefitDetails());
 
         // then
         Assertions.assertThat(discount).isEqualTo(0);

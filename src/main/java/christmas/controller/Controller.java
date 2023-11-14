@@ -1,9 +1,9 @@
 package christmas.controller;
 
+import christmas.CustomerInfo;
 import christmas.domain.BenefitDetails;
 import christmas.domain.VisitDay;
 import christmas.domain.event.EventBadge;
-import christmas.domain.event.EventContext;
 import christmas.domain.order.OrderMenus;
 import christmas.dto.BenefitDetailsDto;
 import christmas.dto.GiveawayMenusDto;
@@ -26,36 +26,17 @@ public class Controller {
 
     public void run() {
         OutputView.printGreetingMessage();
+        CustomerInfo customerInfo = createCustomerInfo();
+        OutputView.printPreviewOfEventBenefitsMessage(customerInfo.visitDay().getVisitDay());
+        OutputView.printOrderMenus(OrderMenusDto.from(customerInfo.orderMenus()));
+        OutputView.printTotalOrderAmountBeforeDiscount(service.calculateTotalOrderAmount(customerInfo.orderMenus()));
+        applyEvents(customerInfo);
+    }
+
+    private CustomerInfo createCustomerInfo() {
         VisitDay visitDay = repeatReadForInvalid(this::createVisitDay);
         OrderMenus orderMenus = repeatReadForInvalid(this::order);
-
-        OutputView.printPreviewOfEventBenefitsMessage(visitDay.getVisitDay());
-
-        OutputView.printOrderMenus(OrderMenusDto.from(orderMenus));
-        OutputView.printTotalOrderAmountBeforeDiscount(service.calculateTotalOrderAmount(orderMenus));
-
-        BenefitDetails benefitDetails = eventService.applyEvents(
-                new EventContext(visitDay, orderMenus),
-                new BenefitDetails()
-        );
-
-        OutputView.printGiveawayMenu(new GiveawayMenusDto(benefitDetails.getGiveawayMenus()));
-        OutputView.printBenefitDetails(new BenefitDetailsDto(benefitDetails.getAppliedEvents()));
-        OutputView.printTotalBenefitAmount(benefitDetails.calculateTotalBenefitAmount());
-
-        int expectedPaymentAmount = service.calculateExpectedPaymentAmount(orderMenus, benefitDetails);
-        OutputView.printExpectedPaymentAmountAfterDiscount(expectedPaymentAmount);
-
-        EventBadge eventBadge = service.assignEventBadge(benefitDetails);
-        OutputView.printDecemberEventBadge(eventBadge.toString());
-    }
-
-    private OrderMenus order() {
-        return service.order(InputView.readOrderMenus());
-    }
-
-    private VisitDay createVisitDay() {
-        return new VisitDay(InputView.readVisitDay());
+        return new CustomerInfo(visitDay, orderMenus);
     }
 
     private <T> T repeatReadForInvalid(Supplier<T> reader) {
@@ -65,5 +46,30 @@ public class Controller {
             OutputView.printErrorMessage(e);
             return repeatReadForInvalid(reader);
         }
+    }
+
+    private VisitDay createVisitDay() {
+        return new VisitDay(InputView.readVisitDay());
+    }
+
+    private OrderMenus order() {
+        return service.order(InputView.readOrderMenus());
+    }
+
+    private void applyEvents(CustomerInfo customerInfo) {
+        BenefitDetails benefitDetails = eventService.applyEvents(
+                customerInfo,
+                new BenefitDetails()
+        );
+
+        OutputView.printGiveawayMenu(new GiveawayMenusDto(benefitDetails.getGiveawayMenus()));
+        OutputView.printBenefitDetails(new BenefitDetailsDto(benefitDetails.getAppliedEvents()));
+        OutputView.printTotalBenefitAmount(benefitDetails.calculateTotalBenefitAmount());
+
+        int expectedPaymentAmount = service.calculateExpectedPaymentAmount(customerInfo.orderMenus(), benefitDetails);
+        OutputView.printExpectedPaymentAmountAfterDiscount(expectedPaymentAmount);
+
+        EventBadge eventBadge = service.assignEventBadge(benefitDetails);
+        OutputView.printDecemberEventBadge(eventBadge.toString());
     }
 }

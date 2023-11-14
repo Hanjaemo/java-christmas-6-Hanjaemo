@@ -1,8 +1,9 @@
 package christmas.domain.event;
 
+import christmas.CustomerInfo;
 import christmas.domain.BenefitDetails;
 
 public interface EventManager {
 
-    int applyEvent(EventContext eventContext, BenefitDetails benefitDetails);
+    int applyEvent(CustomerInfo customerInfo, BenefitDetails benefitDetails);
 }

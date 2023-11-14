@@ -1,5 +1,6 @@
 package christmas.domain.event;
 
+import christmas.CustomerInfo;
 import christmas.domain.BenefitDetails;
 
 public class WeekDiscountEventManager implements EventManager {
@@ -8,15 +9,15 @@ public class WeekDiscountEventManager implements EventManager {
     private static final int DISCOUNT_PER_MAIN = 2_023;
 
     @Override
-    public int applyEvent(EventContext eventContext, BenefitDetails benefitDetails) {
-        if (eventContext.visitDay().isWeekend()) {
-            return applyWeekendEvent(benefitDetails, eventContext);
+    public int applyEvent(CustomerInfo customerInfo, BenefitDetails benefitDetails) {
+        if (customerInfo.visitDay().isWeekend()) {
+            return applyWeekendEvent(benefitDetails, customerInfo);
         }
-        return applyWeekdayEvent(benefitDetails, eventContext);
+        return applyWeekdayEvent(benefitDetails, customerInfo);
     }
 
-    private int applyWeekdayEvent(BenefitDetails benefitDetails, EventContext eventContext) {
-        int discountAmount = calculateDiscountAmount(eventContext);
+    private int applyWeekdayEvent(BenefitDetails benefitDetails, CustomerInfo customerInfo) {
+        int discountAmount = calculateDiscountAmount(customerInfo);
         if (discountAmount == 0) {
             return discountAmount;
         }
@@ -24,12 +25,12 @@ public class WeekDiscountEventManager implements EventManager {
         return discountAmount;
     }
 
-    private int calculateDiscountAmount(EventContext eventContext) {
-        return eventContext.orderMenus().countDessertMenus() * DISCOUNT_PER_DESSERT;
+    private int calculateDiscountAmount(CustomerInfo customerInfo) {
+        return customerInfo.orderMenus().countDessertMenus() * DISCOUNT_PER_DESSERT;
     }
 
-    private int applyWeekendEvent(BenefitDetails benefitDetails, EventContext eventContext) {
-        int discountAmount = eventContext.orderMenus().countMainMenus() * DISCOUNT_PER_MAIN;
+    private int applyWeekendEvent(BenefitDetails benefitDetails, CustomerInfo customerInfo) {
+        int discountAmount = customerInfo.orderMenus().countMainMenus() * DISCOUNT_PER_MAIN;
         if (discountAmount == 0) {
             return discountAmount;
         }
