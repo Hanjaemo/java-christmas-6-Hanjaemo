@@ -6,6 +6,12 @@ import java.util.List;
 
 public class VisitDay {
 
+    private static final int MIN_VISIT_DAY = 1;
+    private static final int MAX_VISIT_DAY = 31;
+    private static final int CHRISTMAS_D_DAY = 25;
+    private static final int EVENT_YEAR = 2023;
+    private static final int EVENT_MONTH = 12;
+
     private final int visitDay;
 
     public VisitDay(int visitDay) {
@@ -20,11 +26,11 @@ public class VisitDay {
     }
 
     private boolean invalidDay(int visitDay) {
-        return visitDay < 1 || visitDay > 31;
+        return visitDay < MIN_VISIT_DAY || visitDay > MAX_VISIT_DAY;
     }
 
     public boolean isNotWithinChristmasPeriod() {
-        return visitDay < 1 || visitDay > 25;
+        return visitDay < MIN_VISIT_DAY || visitDay > CHRISTMAS_D_DAY;
     }
 
     public int decreaseOneDay() {
@@ -32,7 +38,7 @@ public class VisitDay {
     }
 
     public boolean isWeekend() {
-        DayOfWeek visitDayOfWeek = LocalDate.of(2023, 12, visitDay).getDayOfWeek();
+        DayOfWeek visitDayOfWeek = LocalDate.of(EVENT_YEAR, EVENT_MONTH, visitDay).getDayOfWeek();
         return visitDayOfWeek == DayOfWeek.FRIDAY || visitDayOfWeek == DayOfWeek.SATURDAY;
     }
 

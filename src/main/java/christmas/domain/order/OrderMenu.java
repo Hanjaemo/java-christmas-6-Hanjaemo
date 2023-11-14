@@ -1,17 +1,19 @@
 package christmas.domain.order;
 
+import christmas.domain.menu.Menu;
 import java.util.Objects;
 
-import christmas.domain.menu.Menu;
-
 public class OrderMenu {
+
+    private static final int MIN_QUANTITY = 1;
+    private static final int MAX_QUANTITY = 20;
 
     private final Menu menu;
     private final int quantity;
 
     public OrderMenu(Menu menu, int quantity) {
         this.menu = menu;
-        if (quantity < 1 || quantity > 20) {
+        if (quantity < MIN_QUANTITY || quantity > MAX_QUANTITY) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
         this.quantity = quantity;

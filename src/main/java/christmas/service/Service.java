@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 public class Service {
 
+    private static final String MENU_AND_QUANTITY_DELIMITER = "-";
+
     private final ExpectedPaymentAmountCalculator expectedPaymentAmountCalculator;
     private final EventBadgeAssigner eventBadgeAssigner;
 
@@ -28,7 +30,7 @@ public class Service {
 
     private List<OrderMenu> convertToOrderMenuList(List<String> orderMenus) {
         return orderMenus.stream()
-                .map(orderMenu -> orderMenu.split("-"))
+                .map(orderMenu -> orderMenu.split(MENU_AND_QUANTITY_DELIMITER))
                 .map(orderMenu -> new OrderMenu(Menu.from(orderMenu[0]), Integer.parseInt(orderMenu[1])))
                 .collect(Collectors.toList());
     }

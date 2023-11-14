@@ -6,6 +6,9 @@ import java.util.Set;
 
 public class OrderMenus {
 
+    private static final int MIN_TOTAL_QUANTITY = 1;
+    private static final int MAX_TOTAL_QUANTITY = 20;
+
     private final List<OrderMenu> orderMenus;
 
     public OrderMenus(List<OrderMenu> orderMenus) {
@@ -18,7 +21,7 @@ public class OrderMenus {
         int totalQuantity = orderMenus.stream()
                 .mapToInt(OrderMenu::getQuantity)
                 .sum();
-        if (totalQuantity < 1 || totalQuantity > 20) {
+        if (totalQuantity < MIN_TOTAL_QUANTITY || totalQuantity > MAX_TOTAL_QUANTITY) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
