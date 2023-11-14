@@ -4,12 +4,13 @@ import christmas.domain.BenefitDetails;
 
 public class ChristmasDiscountEventManager implements EventManager {
 
+    private static final int CHRISTMAS_D_DAY = 25;
     private static final int DEFAULT_DISCOUNT_AMOUNT = 1_000;
     private static final int DAILY_INCREMENT_AMOUNT = 100;
 
     @Override
     public int applyEvent(EventContext eventContext, BenefitDetails benefitDetails) {
-        if (eventContext.visitDay().isNotWithinChristmasPeriod()) {
+        if (eventContext.visitDay().isNotWithinChristmasPeriod(CHRISTMAS_D_DAY)) {
             return 0;
         }
         int discountAmount = calculateDiscount(eventContext);

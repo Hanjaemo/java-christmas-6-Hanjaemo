@@ -9,7 +9,6 @@ public class VisitDay {
 
     private static final int MIN_VISIT_DAY = 1;
     private static final int MAX_VISIT_DAY = 31;
-    private static final int CHRISTMAS_D_DAY = 25;
     private static final int EVENT_YEAR = 2023;
     private static final int EVENT_MONTH = 12;
 
@@ -30,8 +29,8 @@ public class VisitDay {
         return visitDay < MIN_VISIT_DAY || visitDay > MAX_VISIT_DAY;
     }
 
-    public boolean isNotWithinChristmasPeriod() {
-        return visitDay < MIN_VISIT_DAY || visitDay > CHRISTMAS_D_DAY;
+    public boolean isNotWithinChristmasPeriod(int christmasDDay) {
+        return visitDay < MIN_VISIT_DAY || visitDay > christmasDDay;
     }
 
     public int decreaseOneDay() {
