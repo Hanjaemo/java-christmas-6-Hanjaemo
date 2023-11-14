@@ -1,9 +1,10 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.OrderMenusDto;
 import christmas.error.ErrorMessage;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -39,13 +40,18 @@ public class InputView {
         }
     }
 
-    public static List<String> readOrderMenus() {
+    public static OrderMenusDto readOrderMenus() {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
         String input = Console.readLine();
         validateEmpty(input);
         validateOrderMenusRegex(input);
-        return Arrays.stream(input.split(ORDER_MENUS_DELIMITER))
-                .collect(Collectors.toList());
+        Map<String, Integer> orderMenus = Arrays.stream(input.split(ORDER_MENUS_DELIMITER))
+                .map(orderMenu -> orderMenu.split(MENU_AND_QUANTITY_DELIMITER))
+                .collect(Collectors.toMap(
+                        orderMenu -> orderMenu[0],
+                        orderMenu -> Integer.parseInt(orderMenu[1]))
+                );
+        return OrderMenusDto.from(orderMenus);
     }
 
     private static void validateOrderMenusRegex(String input) {

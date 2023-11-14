@@ -4,20 +4,14 @@ import christmas.BenefitDetailsDto;
 import christmas.GiveawayMenusDto;
 import christmas.OrderMenusDto;
 import christmas.domain.BenefitDetails;
-import christmas.domain.SpecialDays;
 import christmas.domain.VisitDay;
-import christmas.domain.event.ChristmasDiscountEventManager;
 import christmas.domain.event.EventBadge;
 import christmas.domain.event.EventContext;
-import christmas.domain.event.GiveawayEventManager;
-import christmas.domain.event.SpecialDayDiscountEventManager;
-import christmas.domain.event.WeekDiscountEventManager;
 import christmas.domain.order.OrderMenus;
 import christmas.service.EventService;
 import christmas.service.Service;
 import christmas.view.InputView;
 import christmas.view.OutputView;
-
 import java.util.function.Supplier;
 
 public class Controller {

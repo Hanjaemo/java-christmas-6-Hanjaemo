@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.OrderMenusDto;
 import christmas.domain.BenefitDetails;
 import christmas.domain.ExpectedPaymentAmountCalculator;
 import christmas.domain.event.EventBadge;
@@ -12,8 +13,6 @@ import java.util.stream.Collectors;
 
 public class Service {
 
-    private static final String MENU_AND_QUANTITY_DELIMITER = "-";
-
     private final ExpectedPaymentAmountCalculator expectedPaymentAmountCalculator;
     private final EventBadgeAssigner eventBadgeAssigner;
 
@@ -24,14 +23,14 @@ public class Service {
         this.eventBadgeAssigner = eventBadgeAssigner;
     }
 
-    public OrderMenus order(List<String> orderMenus) {
-        return new OrderMenus(convertToOrderMenuList(orderMenus));
+    public OrderMenus order(OrderMenusDto orderMenusDto) {
+        return new OrderMenus(convertToOrderMenuList(orderMenusDto));
     }
 
-    private List<OrderMenu> convertToOrderMenuList(List<String> orderMenus) {
-        return orderMenus.stream()
-                .map(orderMenu -> orderMenu.split(MENU_AND_QUANTITY_DELIMITER))
-                .map(orderMenu -> new OrderMenu(Menu.from(orderMenu[0]), Integer.parseInt(orderMenu[1])))
+    private List<OrderMenu> convertToOrderMenuList(OrderMenusDto orderMenusDto) {
+        return orderMenusDto.getMenus().entrySet()
+                .stream()
+                .map(orderMenus -> new OrderMenu(Menu.from(orderMenus.getKey()), orderMenus.getValue()))
                 .collect(Collectors.toList());
     }
 

@@ -17,11 +17,19 @@ public class OrderMenusDto {
                         OrderMenu::getQuantity));
     }
 
+    private OrderMenusDto(Map<String, Integer> inputOrderMenus) {
+        this.menus = inputOrderMenus;
+    }
+
     public static OrderMenusDto from(OrderMenus orderMenus) {
         return new OrderMenusDto(orderMenus);
     }
 
+    public static OrderMenusDto from(Map<String, Integer> inputOrderMenus) {
+        return new OrderMenusDto(inputOrderMenus);
+    }
+
     public Map<String, Integer> getMenus() {
-        return Map.copyOf(menus);
+        return menus;
     }
 }
