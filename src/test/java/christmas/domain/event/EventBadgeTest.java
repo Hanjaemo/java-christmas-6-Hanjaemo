@@ -17,14 +17,6 @@ class EventBadgeTest {
         Assertions.assertThat(eventBadge.matchesTotalBenefitAmount(totalBenefitAmount)).isTrue();
     }
 
-    @DisplayName("총혜택 금액이 이벤트 배지 부여 조건과 일치하지 않으면 false를 반환한다.")
-    @ParameterizedTest
-    @MethodSource("parametersForNotMatchesTotalBenefitAmountTest")
-    void matchesTotalBenefitAmount_False(EventBadge eventBadge, int totalBenefitAmount) {
-        // when, then
-        Assertions.assertThat(eventBadge.matchesTotalBenefitAmount(totalBenefitAmount)).isFalse();
-    }
-
     static Stream<Arguments> parametersForMatchesTotalBenefitAmountTest() {
         return Stream.of(
                 Arguments.of(EventBadge.SANTA, 25_000),
@@ -32,6 +24,14 @@ class EventBadgeTest {
                 Arguments.of(EventBadge.STAR, 6_500),
                 Arguments.of(EventBadge.MISS, 3_000)
         );
+    }
+
+    @DisplayName("총혜택 금액이 이벤트 배지 부여 조건과 일치하지 않으면 false를 반환한다.")
+    @ParameterizedTest
+    @MethodSource("parametersForNotMatchesTotalBenefitAmountTest")
+    void matchesTotalBenefitAmount_False(EventBadge eventBadge, int totalBenefitAmount) {
+        // when, then
+        Assertions.assertThat(eventBadge.matchesTotalBenefitAmount(totalBenefitAmount)).isFalse();
     }
 
     static Stream<Arguments> parametersForNotMatchesTotalBenefitAmountTest() {

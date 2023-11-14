@@ -14,7 +14,7 @@ class VisitDayTest {
     @ValueSource(ints = {-1, 0})
     void createVisitDay_Fail_ByLessThan1(int visitDay) {
         // when, then
-        Assertions.assertThatThrownBy(() -> new VisitDay(visitDay))
+        Assertions.assertThatThrownBy(() -> createVisitDay(visitDay))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(ErrorMessage.INVALID_VISIT_DAY.getMessage());
     }
@@ -24,7 +24,7 @@ class VisitDayTest {
     @ValueSource(ints = {32, 45, 50})
     void createVisitDay_Fail_ByMoreThan31(int visitDay) {
         // when, then
-        Assertions.assertThatThrownBy(() -> new VisitDay(visitDay))
+        Assertions.assertThatThrownBy(() -> createVisitDay(visitDay))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining(ErrorMessage.INVALID_VISIT_DAY.getMessage());
     }
@@ -34,7 +34,7 @@ class VisitDayTest {
     @ValueSource(ints = {26, 28, 30})
     void isNotWithinChristmasPeriod_False(int visitDay) {
         // given
-        VisitDay createdVisitDay = new VisitDay(visitDay);
+        VisitDay createdVisitDay = createVisitDay(visitDay);
 
         // when, then
         Assertions.assertThat(createdVisitDay.isNotWithinChristmasPeriod(25)).isTrue();
@@ -44,9 +44,13 @@ class VisitDayTest {
     @Test
     void decreaseVisitDay_Success() {
         // given
-        VisitDay visitDay = new VisitDay(5);
+        VisitDay visitDay = createVisitDay(5);
 
         // when, then
         Assertions.assertThat(visitDay.decreaseOneDay()).isEqualTo(4);
+    }
+
+    private VisitDay createVisitDay(int visitDay) {
+        return new VisitDay(visitDay);
     }
 }

@@ -2,7 +2,6 @@ package christmas.domain.order;
 
 import christmas.domain.menu.Menu;
 import christmas.error.ErrorMessage;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +33,7 @@ class OrderMenuTest {
     @EnumSource(value = Menu.class, names = {"T_BONE_STEAK", "BARBECUE_RIBS", "SEAFOOD_PASTA", "CHRISTMAS_PASTA"})
     void isMain_True(Menu menu) {
         // given
-        OrderMenu orderMenu = new OrderMenu(menu, 4);
+        OrderMenu orderMenu = createOrderMenu(menu, 4);
 
         // when, then
         Assertions.assertThat(orderMenu.isMenuMain()).isTrue();
@@ -45,7 +44,7 @@ class OrderMenuTest {
     @EnumSource(value = Menu.class, names = {"TAPAS", "ICE_CREAM", "RED_WINE"})
     void isMain_False(Menu menu) {
         // given
-        OrderMenu orderMenu = new OrderMenu(menu, 4);
+        OrderMenu orderMenu = createOrderMenu(menu, 4);
 
         // when, then
         Assertions.assertThat(orderMenu.isMenuMain()).isFalse();
@@ -56,7 +55,7 @@ class OrderMenuTest {
     @EnumSource(value = Menu.class, names = {"CHOCOLATE_CAKE", "ICE_CREAM"})
     void isDessert_True(Menu menu) {
         // given
-        OrderMenu orderMenu = new OrderMenu(menu, 4);
+        OrderMenu orderMenu = createOrderMenu(menu, 4);
 
         // when, then
         Assertions.assertThat(orderMenu.isMenuDessert()).isTrue();
@@ -67,7 +66,7 @@ class OrderMenuTest {
     @EnumSource(value = Menu.class, names = {"TAPAS", "SEAFOOD_PASTA", "COKE_ZERO"})
     void isDessert_False(Menu menu) {
         // given
-        OrderMenu orderMenu = new OrderMenu(menu, 4);
+        OrderMenu orderMenu = createOrderMenu(menu, 4);
 
         // when, then
         Assertions.assertThat(orderMenu.isMenuDessert()).isFalse();
@@ -77,9 +76,13 @@ class OrderMenuTest {
     @Test
     void calculatePrice_Success() {
         // given
-        OrderMenu orderMenu = new OrderMenu(Menu.COKE_ZERO, 3);
+        OrderMenu orderMenu = createOrderMenu(Menu.COKE_ZERO, 3);
 
         // when, then
         Assertions.assertThat(orderMenu.calculatePrice()).isEqualTo(9_000);
+    }
+
+    private OrderMenu createOrderMenu(Menu menu, int quantity) {
+        return new OrderMenu(menu, quantity);
     }
 }

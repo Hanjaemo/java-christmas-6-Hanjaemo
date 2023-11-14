@@ -21,7 +21,7 @@ class SpecialDayDiscountEventManagerTest {
 
     @BeforeEach
     void init() {
-        orderMenus = new OrderMenus(List.of(new OrderMenu(Menu.CHAMPAGNE, 1)));
+        orderMenus = new OrderMenus(List.of(new OrderMenu(Menu.T_BONE_STEAK, 1)));
         eventManager = new SpecialDayDiscountEventManager();
     }
 
@@ -44,9 +44,7 @@ class SpecialDayDiscountEventManagerTest {
     @ValueSource(ints = {2, 4, 6, 12, 18, 22, 26, 30})
     void applyEvent_ReturnZero_ByVisitDayIsNotSpecialDay(int visitDay) {
         // given
-        OrderMenus orderMenus = new OrderMenus(List.of(new OrderMenu(Menu.CHAMPAGNE, 1)));
         EventContext eventContext = new EventContext(createVisitDay(visitDay), orderMenus);
-        EventManager eventManager = new SpecialDayDiscountEventManager();
 
         // when
         int discountAmount = eventManager.applyEvent(eventContext, new BenefitDetails());

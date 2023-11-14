@@ -18,11 +18,13 @@ class GiveawayEventManagerTest {
     void applyEvent_Success_ByTotalOrderAmountIsMoreThan120_000() {
         // given
         List<OrderMenu> orderMenuList = new ArrayList<>();
-        orderMenuList.add(new OrderMenu(Menu.MUSHROOM_SOUP, 1));
-        orderMenuList.add(new OrderMenu(Menu.T_BONE_STEAK, 1));
-        orderMenuList.add(new OrderMenu(Menu.RED_WINE, 1));
+        orderMenuList.add(createOrderMenu(Menu.MUSHROOM_SOUP, 2));
+        orderMenuList.add(createOrderMenu(Menu.T_BONE_STEAK, 1));
+        orderMenuList.add(createOrderMenu(Menu.RED_WINE, 1));
         OrderMenus orderMenus = new OrderMenus(orderMenuList);
+
         EventContext eventContext = new EventContext(createVisitDay(23), orderMenus);
+
         EventManager eventManager = new GiveawayEventManager();
 
         // when
@@ -37,10 +39,12 @@ class GiveawayEventManagerTest {
     void applyEvent_ReturnZero_ByTotalOrderAmountIsLessThan120_000() {
         // given
         List<OrderMenu> orderMenuList = new ArrayList<>();
-        orderMenuList.add(new OrderMenu(Menu.MUSHROOM_SOUP, 1));
-        orderMenuList.add(new OrderMenu(Menu.RED_WINE, 1));
+        orderMenuList.add(createOrderMenu(Menu.MUSHROOM_SOUP, 1));
+        orderMenuList.add(createOrderMenu(Menu.RED_WINE, 1));
         OrderMenus orderMenus = new OrderMenus(orderMenuList);
+
         EventContext eventContext = new EventContext(createVisitDay(5), orderMenus);
+
         EventManager eventManager = new GiveawayEventManager();
 
         // when
@@ -48,6 +52,10 @@ class GiveawayEventManagerTest {
 
         // then
         Assertions.assertThat(discount).isEqualTo(0);
+    }
+
+    private OrderMenu createOrderMenu(Menu menu, int quantity) {
+        return new OrderMenu(menu, quantity);
     }
 
     private VisitDay createVisitDay(int visitDay) {

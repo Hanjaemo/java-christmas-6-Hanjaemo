@@ -1,10 +1,9 @@
 package christmas.domain;
 
-import java.util.EnumMap;
-import java.util.Map;
-
 import christmas.domain.event.Event;
 import christmas.domain.menu.Menu;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class BenefitDetails {
 
@@ -13,7 +12,7 @@ public class BenefitDetails {
 
     public BenefitDetails() {
         this.appliedEvents = new EnumMap<>(Event.class);
-        this.giveawayMenus =new EnumMap<>(Menu.class);
+        this.giveawayMenus = new EnumMap<>(Menu.class);
     }
 
     public void addEvent(Event event, int discountAmount) {
@@ -39,4 +38,3 @@ public class BenefitDetails {
         return Map.copyOf(giveawayMenus);
     }
 }
-
