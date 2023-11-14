@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.error.ErrorMessage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ class VisitDayTest {
         // when, then
         Assertions.assertThatThrownBy(() -> new VisitDay(visitDay))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+                .hasMessageContaining(ErrorMessage.INVALID_VISIT_DAY.getMessage());
     }
 
     @DisplayName("식당 예상 방문 날짜가 31보다 크면 예외가 발생한다.")
@@ -25,7 +26,7 @@ class VisitDayTest {
         // when, then
         Assertions.assertThatThrownBy(() -> new VisitDay(visitDay))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+                .hasMessageContaining(ErrorMessage.INVALID_VISIT_DAY.getMessage());
     }
 
     @DisplayName("식당 예상 방문 날짜가 1일부터 크리스마스(25일) 사이에 속하지 않으면 true를 반환한다.")

@@ -1,6 +1,7 @@
 package christmas.domain.order;
 
 import christmas.domain.menu.Menu;
+import christmas.error.ErrorMessage;
 import java.util.Objects;
 
 public class OrderMenu {
@@ -14,7 +15,7 @@ public class OrderMenu {
     public OrderMenu(Menu menu, int quantity) {
         this.menu = menu;
         if (quantity < MIN_QUANTITY || quantity > MAX_QUANTITY) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
         this.quantity = quantity;
     }

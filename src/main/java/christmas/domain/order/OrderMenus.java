@@ -1,5 +1,6 @@
 package christmas.domain.order;
 
+import christmas.error.ErrorMessage;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,14 +23,14 @@ public class OrderMenus {
                 .mapToInt(OrderMenu::getQuantity)
                 .sum();
         if (totalQuantity < MIN_TOTAL_QUANTITY || totalQuantity > MAX_TOTAL_QUANTITY) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 
     private void validateDuplicated(List<OrderMenu> orderMenus) {
         Set<OrderMenu> distinctOrderMenus = new HashSet<>(orderMenus);
         if (distinctOrderMenus.size() != orderMenus.size()) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
     }
 

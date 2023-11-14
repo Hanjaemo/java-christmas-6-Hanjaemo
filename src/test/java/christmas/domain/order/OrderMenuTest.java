@@ -1,6 +1,8 @@
 package christmas.domain.order;
 
 import christmas.domain.menu.Menu;
+import christmas.error.ErrorMessage;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +17,7 @@ class OrderMenuTest {
         // when, then
         Assertions.assertThatThrownBy(() -> new OrderMenu(Menu.BARBECUE_RIBS, 0))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                .hasMessageContaining(ErrorMessage.INVALID_ORDER.getMessage());
     }
 
     @DisplayName("메뉴 수량이 최댓값보다 큰 경우 예외가 발생한다.")
@@ -24,7 +26,7 @@ class OrderMenuTest {
         // when, then
         Assertions.assertThatThrownBy(() -> new OrderMenu(Menu.BARBECUE_RIBS, 21))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                .hasMessageContaining(ErrorMessage.INVALID_ORDER.getMessage());
     }
 
     @DisplayName("주문한 메뉴의 카테고리가 메인이면 true를 반환한다.")

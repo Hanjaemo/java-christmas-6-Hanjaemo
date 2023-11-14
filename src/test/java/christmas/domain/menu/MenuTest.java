@@ -9,6 +9,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import christmas.error.ErrorMessage;
+
 class MenuTest {
 
     @DisplayName("메뉴 이름에 해당하는 메뉴를 반환한다.")
@@ -35,7 +37,7 @@ class MenuTest {
         // when, then
         Assertions.assertThatThrownBy(() -> Menu.from("브로콜리"))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessageContaining("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                .hasMessageContaining(ErrorMessage.INVALID_ORDER.getMessage());
     }
 
     @DisplayName("메뉴의 카테고리가 메인이면 true를 반환한다.")
