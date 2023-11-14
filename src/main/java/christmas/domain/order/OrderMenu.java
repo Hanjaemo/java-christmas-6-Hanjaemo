@@ -32,6 +32,10 @@ public class OrderMenu {
         return menu.getPrice() * quantity;
     }
 
+    public boolean isNotBeverage() {
+        return menu.isNotBeverage();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

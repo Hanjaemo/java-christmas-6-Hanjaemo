@@ -43,6 +43,10 @@ public enum Menu {
         return this.category == MenuCategory.DESSERT;
     }
 
+    public boolean isNotBeverage() {
+        return this.category != MenuCategory.BEVERAGE;
+    }
+
     public String getName() {
         return name;
     }

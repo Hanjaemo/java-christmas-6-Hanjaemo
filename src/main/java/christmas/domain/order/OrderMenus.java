@@ -15,6 +15,7 @@ public class OrderMenus {
     public OrderMenus(List<OrderMenu> orderMenus) {
         validateTotalQuantity(orderMenus);
         validateDuplicated(orderMenus);
+        validateOnlyBeverage(orderMenus);
         this.orderMenus = orderMenus;
     }
 
@@ -32,6 +33,16 @@ public class OrderMenus {
         if (distinctOrderMenus.size() != orderMenus.size()) {
             throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
         }
+    }
+
+    private void validateOnlyBeverage(List<OrderMenu> orderMenus) {
+        if (containsOnlyBeverage(orderMenus)) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER.getMessage());
+        }
+    }
+
+    private boolean containsOnlyBeverage(List<OrderMenu> orderMenus) {
+        return orderMenus.stream().noneMatch(OrderMenu::isNotBeverage);
     }
 
     public int calculateTotalOrderAmount() {
