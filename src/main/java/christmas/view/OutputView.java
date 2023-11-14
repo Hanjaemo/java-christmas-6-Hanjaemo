@@ -29,6 +29,12 @@ public class OutputView {
         printNewLine();
     }
 
+    private static void repeatPrintMenus(Map<String, Integer> menus) {
+        for (String menuName : menus.keySet()) {
+            System.out.printf("%s %d개%s", menuName, menus.get(menuName), NEW_LINE);
+        }
+    }
+
     public static void printTotalOrderAmountBeforeDiscount(int totalOrderAmountBeforeDiscount) {
         System.out.println("<할인 전 총주문 금액>");
         System.out.println(convertNumberToKoreanWonFormat(totalOrderAmountBeforeDiscount));
@@ -55,12 +61,6 @@ public class OutputView {
         return map.size() == 0;
     }
 
-    private static void repeatPrintMenus(Map<String, Integer> menus) {
-        for (String menuName : menus.keySet()) {
-            System.out.printf("%s %d개%s", menuName, menus.get(menuName), NEW_LINE);
-        }
-    }
-
     public static void printBenefitDetails(BenefitDetailsDto benefitDetailsDto) {
         System.out.println("<혜택 내역>");
         Map<String, Integer> benefitDetails = benefitDetailsDto.getBenefitDetails();
@@ -69,11 +69,15 @@ public class OutputView {
             printNewLine();
             return;
         }
+        repeatPrintEventAndDiscountAmount(benefitDetails);
+        printNewLine();
+    }
+
+    private static void repeatPrintEventAndDiscountAmount(Map<String, Integer> benefitDetails) {
         for (String benefitName : benefitDetails.keySet()) {
             System.out.printf("%s: %s%s",
                     benefitName, convertNumberToKoreanWonFormat(-benefitDetails.get(benefitName)), NEW_LINE);
         }
-        printNewLine();
     }
 
     public static void printTotalBenefitAmount(int totalBenefitAmount) {
