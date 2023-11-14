@@ -1,8 +1,8 @@
 package christmas.view;
 
-import christmas.BenefitDetailsDto;
-import christmas.GiveawayMenusDto;
-import christmas.OrderMenusDto;
+import christmas.dto.BenefitDetailsDto;
+import christmas.dto.GiveawayMenusDto;
+import christmas.dto.OrderMenusDto;
 import java.text.DecimalFormat;
 import java.util.Map;
 

@@ -1,9 +1,8 @@
-package christmas;
-
-import java.util.Map;
-import java.util.stream.Collectors;
+package christmas.dto;
 
 import christmas.domain.event.Event;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class BenefitDetailsDto {
 

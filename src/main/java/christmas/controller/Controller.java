@@ -1,13 +1,13 @@
 package christmas.controller;
 
-import christmas.BenefitDetailsDto;
-import christmas.GiveawayMenusDto;
-import christmas.OrderMenusDto;
 import christmas.domain.BenefitDetails;
 import christmas.domain.VisitDay;
 import christmas.domain.event.EventBadge;
 import christmas.domain.event.EventContext;
 import christmas.domain.order.OrderMenus;
+import christmas.dto.BenefitDetailsDto;
+import christmas.dto.GiveawayMenusDto;
+import christmas.dto.OrderMenusDto;
 import christmas.service.EventService;
 import christmas.service.Service;
 import christmas.view.InputView;

@@ -1,6 +1,5 @@
 package christmas.service;
 
-import christmas.OrderMenusDto;
 import christmas.domain.BenefitDetails;
 import christmas.domain.ExpectedPaymentAmountCalculator;
 import christmas.domain.event.EventBadge;
@@ -8,6 +7,7 @@ import christmas.domain.event.EventBadgeAssigner;
 import christmas.domain.menu.Menu;
 import christmas.domain.order.OrderMenu;
 import christmas.domain.order.OrderMenus;
+import christmas.dto.OrderMenusDto;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,9 +1,8 @@
-package christmas;
-
-import java.util.Map;
-import java.util.stream.Collectors;
+package christmas.dto;
 
 import christmas.domain.menu.Menu;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class GiveawayMenusDto {
 

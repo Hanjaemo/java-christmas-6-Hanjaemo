@@ -1,7 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.OrderMenusDto;
+import christmas.dto.OrderMenusDto;
 import christmas.error.ErrorMessage;
 import java.util.Arrays;
 import java.util.Map;
