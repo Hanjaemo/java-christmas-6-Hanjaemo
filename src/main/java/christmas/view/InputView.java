@@ -10,9 +10,10 @@ import java.util.stream.Collectors;
 public class InputView {
 
     private static final String ORDER_MENUS_DELIMITER = ",";
+    private static final String MENU_AND_QUANTITY_DELIMITER = "-";
     private static final Pattern ORDER_MENUS_REGEX =
-            Pattern.compile("^([가-힣a-zA-Z0-9]+-\\d+)(%s[가-힣a-zA-Z0-9]+-\\d+)*$"
-                    .formatted(ORDER_MENUS_DELIMITER));
+            Pattern.compile("^([가-힣a-zA-Z0-9]+%s\\d+)(%s[가-힣a-zA-Z0-9]+%s\\d+)*$"
+                    .formatted(MENU_AND_QUANTITY_DELIMITER, ORDER_MENUS_DELIMITER, MENU_AND_QUANTITY_DELIMITER));
 
     private InputView() {
     }
@@ -43,7 +44,7 @@ public class InputView {
         String input = Console.readLine();
         validateEmpty(input);
         validateOrderMenusRegex(input);
-        return Arrays.stream(input.split(","))
+        return Arrays.stream(input.split(ORDER_MENUS_DELIMITER))
                 .collect(Collectors.toList());
     }
 
