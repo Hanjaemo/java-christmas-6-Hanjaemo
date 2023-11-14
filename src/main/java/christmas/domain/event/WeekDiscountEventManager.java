@@ -16,12 +16,16 @@ public class WeekDiscountEventManager implements EventManager {
     }
 
     private int applyWeekdayEvent(BenefitDetails benefitDetails, EventContext eventContext) {
-        int discountAmount = eventContext.orderMenus().countDessertMenus() * DISCOUNT_PER_DESSERT;
+        int discountAmount = calculateDiscountAmount(eventContext);
         if (discountAmount == 0) {
             return discountAmount;
         }
         benefitDetails.addEvent(Event.WEEKDAY_DISCOUNT, discountAmount);
         return discountAmount;
+    }
+
+    private int calculateDiscountAmount(EventContext eventContext) {
+        return eventContext.orderMenus().countDessertMenus() * DISCOUNT_PER_DESSERT;
     }
 
     private int applyWeekendEvent(BenefitDetails benefitDetails, EventContext eventContext) {
