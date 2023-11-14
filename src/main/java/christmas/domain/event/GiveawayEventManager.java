@@ -6,10 +6,12 @@ import christmas.domain.order.OrderMenu;
 
 public class GiveawayEventManager implements EventManager {
 
+    private static final int MIN_TOTAL_ORDER_AMOUNT_FOR_APPLY_EVENT = 120_000;
+
     @Override
     public int applyEvent(EventContext eventContext, BenefitDetails benefitDetails) {
         int totalOrderAmount = eventContext.orderMenus().calculateTotalOrderAmount();
-        if (totalOrderAmount < 120_000) {
+        if (totalOrderAmount < MIN_TOTAL_ORDER_AMOUNT_FOR_APPLY_EVENT) {
             return 0;
         }
         eventContext.orderMenus().addOrderMenu(new OrderMenu(Menu.CHAMPAGNE, 1));
