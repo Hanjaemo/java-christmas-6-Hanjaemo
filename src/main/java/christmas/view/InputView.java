@@ -26,7 +26,7 @@ public class InputView {
 
     private static void validateEmpty(String input) {
         if (input.isEmpty()) {
-            throw new IllegalArgumentException("[ERROR] 값을 입력하지 않았습니다.");
+            throw new IllegalArgumentException("[ERROR] 값을 입력하지 않았습니다. 다시 입력해 주세요.");
         }
     }
 
