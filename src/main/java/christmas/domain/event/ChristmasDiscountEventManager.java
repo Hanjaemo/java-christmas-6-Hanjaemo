@@ -12,9 +12,12 @@ public class ChristmasDiscountEventManager implements EventManager {
         if (eventContext.visitDay().isNotWithinChristmasPeriod()) {
             return 0;
         }
-        int discountAmount =
-                DEFAULT_DISCOUNT_AMOUNT + (eventContext.visitDay().decreaseOneDay() * DAILY_INCREMENT_AMOUNT);
+        int discountAmount = calculateDiscount(eventContext);
         benefitDetails.addEvent(Event.CHRISTMAS_DISCOUNT, discountAmount);
         return discountAmount;
+    }
+
+    private int calculateDiscount(EventContext eventContext) {
+        return DEFAULT_DISCOUNT_AMOUNT + (eventContext.visitDay().decreaseOneDay() * DAILY_INCREMENT_AMOUNT);
     }
 }
