@@ -8,13 +8,17 @@ public class GiveawayMenusDto {
 
     private final Map<String, Integer> menus;
 
-    public GiveawayMenusDto(Map<Menu, Integer> menus) {
-        this.menus = menus.entrySet()
+    private GiveawayMenusDto(Map<Menu, Integer> giveawayMenus) {
+        this.menus = giveawayMenus.entrySet()
                 .stream()
                 .collect(Collectors.toMap(
-                        menu -> menu.getKey().getName(),
-                        menu -> menu.getValue()
+                        giveawayMenu -> giveawayMenu.getKey().getName(),
+                        giveawayMenu -> giveawayMenu.getValue()
                 ));
+    }
+
+    public static GiveawayMenusDto from(Map<Menu, Integer> giveawayMenus) {
+        return new GiveawayMenusDto(giveawayMenus);
     }
 
     public Map<String, Integer> getMenus() {

@@ -62,8 +62,8 @@ public class Controller {
                 new BenefitDetails()
         );
 
-        OutputView.printGiveawayMenu(new GiveawayMenusDto(benefitDetails.getGiveawayMenus()));
-        OutputView.printBenefitDetails(new BenefitDetailsDto(benefitDetails.getAppliedEvents()));
+        OutputView.printGiveawayMenu(GiveawayMenusDto.from(benefitDetails.getGiveawayMenus()));
+        OutputView.printBenefitDetails(BenefitDetailsDto.from(benefitDetails.getAppliedEvents()));
         OutputView.printTotalBenefitAmount(benefitDetails.calculateTotalBenefitAmount());
 
         int expectedPaymentAmount = service.calculateExpectedPaymentAmount(customerInfo.orderMenus(), benefitDetails);
