@@ -1,20 +1,19 @@
 package christmas;
 
+import christmas.config.EventManagerConfig;
 import christmas.controller.Controller;
 import christmas.domain.ExpectedPaymentAmountCalculator;
-import christmas.domain.event.ChristmasDiscountEventManager;
 import christmas.domain.event.EventBadgeAssigner;
-import christmas.domain.event.GiveawayEventManager;
-import christmas.domain.event.SpecialDayDiscountEventManager;
-import christmas.domain.event.WeekDiscountEventManager;
 import christmas.service.EventService;
 import christmas.service.Service;
-import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
+        EventManagerConfig eventManagerConfig = new EventManagerConfig();
+
         Service service = createService();
-        EventService eventService = createEventService();
+        EventService eventService = new EventService(eventManagerConfig.eventManagers());
+
         Controller controller = new Controller(service, eventService);
         controller.run();
     }
@@ -23,14 +22,5 @@ public class Application {
         ExpectedPaymentAmountCalculator expectedPaymentAmountCalculator = new ExpectedPaymentAmountCalculator();
         EventBadgeAssigner eventBadgeAssigner = new EventBadgeAssigner();
         return new Service(expectedPaymentAmountCalculator, eventBadgeAssigner);
-    }
-
-    private static EventService createEventService() {
-        return new EventService(
-                List.of(new ChristmasDiscountEventManager(),
-                        new WeekDiscountEventManager(),
-                        new SpecialDayDiscountEventManager(),
-                        new GiveawayEventManager())
-        );
     }
 }
