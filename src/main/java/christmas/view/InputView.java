@@ -22,10 +22,10 @@ public class InputView {
     public static int readVisitDay() {
         System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
         String input = Console.readLine();
-        return toInt(input);
+        return convertToInt(input);
     }
 
-    private static int toInt(String input) {
+    private static int convertToInt(String input) {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
@@ -37,13 +37,17 @@ public class InputView {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
         String input = Console.readLine();
         validateOrderMenusRegex(input);
-        Map<String, Integer> orderMenus = Arrays.stream(input.split(ORDER_MENUS_DELIMITER))
+        Map<String, Integer> orderMenus = convertToMap(input);
+        return OrderMenusDto.from(orderMenus);
+    }
+
+    private static Map<String, Integer> convertToMap(String input) {
+        return Arrays.stream(input.split(ORDER_MENUS_DELIMITER))
                 .map(orderMenu -> orderMenu.split(MENU_AND_QUANTITY_DELIMITER))
                 .collect(Collectors.toMap(
                         orderMenu -> orderMenu[0],
-                        orderMenu -> Integer.parseInt(orderMenu[1]))
+                        orderMenu -> convertToInt(orderMenu[1]))
                 );
-        return OrderMenusDto.from(orderMenus);
     }
 
     private static void validateOrderMenusRegex(String input) {
