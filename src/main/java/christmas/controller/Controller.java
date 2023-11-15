@@ -57,18 +57,22 @@ public class Controller {
     }
 
     private void applyEvents(CustomerInfo customerInfo) {
-        BenefitDetails benefitDetails = eventService.applyEvents(
-                customerInfo,
-                new BenefitDetails()
-        );
+        BenefitDetails benefitDetails = eventService.applyEvents(customerInfo, new BenefitDetails());
 
         OutputView.printGiveawayMenu(GiveawayMenusDto.from(benefitDetails.getGiveawayMenus()));
         OutputView.printBenefitDetails(BenefitDetailsDto.from(benefitDetails.getAppliedEvents()));
         OutputView.printTotalBenefitAmount(benefitDetails.calculateTotalBenefitAmount());
 
+        calculateExpectedPaymentAmount(customerInfo, benefitDetails);
+        assignEventBadge(benefitDetails);
+    }
+
+    private void calculateExpectedPaymentAmount(CustomerInfo customerInfo, BenefitDetails benefitDetails) {
         int expectedPaymentAmount = service.calculateExpectedPaymentAmount(customerInfo.orderMenus(), benefitDetails);
         OutputView.printExpectedPaymentAmountAfterDiscount(expectedPaymentAmount);
+    }
 
+    private void assignEventBadge(BenefitDetails benefitDetails) {
         EventBadge eventBadge = service.assignEventBadge(benefitDetails);
         OutputView.printDecemberEventBadge(eventBadge.toString());
     }
